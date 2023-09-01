@@ -15,7 +15,7 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, PhantomEQ.MODID);
 
 
-    public static final RegistryObject<Item> PEQTEMP = ITEMS.register("peqtemp",
+    public static final RegistryObject<Item> PEQ_SADDLE = ITEMS.register("peq_saddle",
             () -> new Item(new Item.Properties().tab(ModItemGroup.PEQ)));
 
 

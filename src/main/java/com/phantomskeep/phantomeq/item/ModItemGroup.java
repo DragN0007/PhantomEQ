@@ -9,7 +9,7 @@ public class ModItemGroup {
     public static final CreativeModeTab PEQ = new CreativeModeTab("PEQ") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ModItems.PEQTEMP.get());
+            return new ItemStack(ModItems.PEQ_SADDLE.get());
         }
     };
 
