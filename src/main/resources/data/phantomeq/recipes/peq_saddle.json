@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "LCL",
+    "I I"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "C": {
+      "item": "minecraft:white_carpet"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+
+  "result": {
+    "item": "phantomeq:peq_saddle",
+    "count": 1
+  }
+}
