@@ -1,6 +1,9 @@
 package com.phantomskeep.phantomeq.event;
 
 
+import com.phantomskeep.phantomeq.entity.util.EntityTypes;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +22,7 @@ public class ForgeEvent {
                 break;
 
             case PLAINS:
+                event.getSpawns().getSpawner(MobCategory.CREATURE).add(new MobSpawnSettings.SpawnerData(EntityTypes.WARMBLOOD.get(), 4, 2, 4));
 
                 break;
 
