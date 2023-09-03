@@ -1,15 +1,10 @@
 package com.phantomskeep.phantomeq.entity.util;
 
-import com.google.common.collect.ImmutableSet;
 import com.phantomskeep.phantomeq.entity.WarmBloodEntity;
 import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.monster.Strider;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
