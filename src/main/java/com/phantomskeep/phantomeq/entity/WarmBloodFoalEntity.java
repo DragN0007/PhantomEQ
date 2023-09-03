@@ -11,10 +11,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -32,6 +30,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.Predicate;
 
 
 public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
@@ -41,6 +40,21 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
     public WarmBloodFoalEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+    }
+
+    private static final Predicate<LivingEntity> PARENT_HORSE_SELECTOR = (livingEntity) -> {
+        return livingEntity instanceof AbstractHorse && ((AbstractHorse)livingEntity).isBred();
+    };
+    private static final TargetingConditions MOMMY_TARGETING = TargetingConditions.forNonCombat()
+            .range(16.0D).ignoreLineOfSight().selector(PARENT_HORSE_SELECTOR);
+    protected void followMommy() {
+        if (this.isBred() && this.isBaby() && !this.isEating()) {
+            LivingEntity livingentity = this.level.getNearestEntity(AbstractHorse.class, MOMMY_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
+            if (livingentity != null && this.distanceToSqr(livingentity) > 4.0D) {
+                this.navigation.createPath(livingentity, 0);
+            }
+        }
+
     }
 
 //    protected void randomizeAttributes() {
