@@ -3,6 +3,7 @@ package com.phantomskeep.phantomeq.entity;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import com.phantomskeep.phantomeq.item.ModItems;
 import com.phantomskeep.phantomeq.model.WarmbloodModel;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,23 +16,21 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -44,6 +43,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.Predicate;
 
 
 public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
@@ -95,18 +95,46 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         return SoundEvents.HORSE_ANGRY;
     }
 
-    //THIS ENTITY HAS NO GOALS. This entity uses AbstractHorse Goals by default...
+
+    private int isEatingGrass;
+    private EatBlockGoal eatBlockGoal;
+    protected void customServerAiStep() {
+        this.isEatingGrass = this.eatBlockGoal.getEatAnimationTick();
+        super.customServerAiStep();
+    }
+    public void aiStep() {
+        if (this.level.isClientSide) {
+            this.isEatingGrass = Math.max(1, this.isEatingGrass - 1);
+        }
+
+        super.aiStep();
+    }
+
+    public void registerGoals() {
+        this.eatBlockGoal = new EatBlockGoal(this);
+        this.goalSelector.addGoal(5, this.eatBlockGoal);
+
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
+        this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D, AbstractHorse.class));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.addBehaviourGoals();
+    }
+
 
     private <E extends IAnimatable>PlayState predicate(AnimationEvent<E> event) {
 
-            if (event.isMoving()) {
-                if (isSprinting()) {
+        if (event.isMoving()) {
+            if (isEatingGrass > 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("sprint", ILoopType.EDefaultLoopTypes.LOOP));
             } else
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
 
-            } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
+        } else
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
 
 
         return PlayState.CONTINUE;
@@ -124,11 +152,154 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         return factory;
     }
 
+    //Rider & Lead Offsets
+//    public void positionRider(Entity positionRider) {
+//        super.positionRider(positionRider);
+//        if (positionRider instanceof Mob) {
+//            Mob mob = (Mob)positionRider;
+//            this.yBodyRot = mob.yBodyRot;
+//        }
+//
+//            positionRider.setPos(this.getX() + (double)(0.3F), this.getY() + this.getPassengersRidingOffset() + positionRider.getMyRidingOffset() + (double)0F, this.getZ() - (double)(0F));
+//            if (positionRider instanceof LivingEntity) {
+//                ((LivingEntity)positionRider).yBodyRot = this.yBodyRot;
+//            }
+//        }
+
+    public Vec3 getLeashOffset() {
+        return new Vec3(0.0D, (double)(0.9F * this.getEyeHeight()), (double)(this.getBbWidth() * 0.9F));
+    }
+
+
+    //Generates variant textures
+
+    public ResourceLocation getTextureLocation() {
+        return WarmbloodModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
+    }
+
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmBloodEntity.class, EntityDataSerializers.INT);
+
+    public int getVariant(){
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
 
     @Override
-    public double getPassengersRidingOffset() {
-        return 0.0F / 1.0F / 3.0F;
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        if(compoundNBT.contains("Variant")) {
+            setVariant(compoundNBT.getInt("Variant"));
+        }
     }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.putInt("Variant", getVariant());
+
+        if (compoundNBT.contains("peq_saddle", 10)) {
+            ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("peq_saddle"));
+            if (itemstack.is(ModItems.PEQ_SADDLE.get())) {
+                this.inventory.setItem(0, itemstack);
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+
+        setVariant(new Random().nextInt(WarmbloodModel.Variant.values().length));
+
+        return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
+    public boolean canBeParent() {
+        return !this.isVehicle() && !this.isPassenger() && this.isTamed() && !this.isBaby() && this.getHealth() >= this.getMaxHealth() && this.isInLove();
+    }
+    public boolean canMate(Animal animal) {
+        if (animal == this) {
+            return false;
+        } else if (!(animal instanceof Donkey) && !(animal instanceof Horse)) {
+            return false;
+        } else {
+            return this.canBeParent() && ((WarmBloodEntity)animal).canBeParent();
+        }
+    }
+    @Nullable
+    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
+        WarmBloodFoalEntity foal;
+        if (ageableMob instanceof Donkey) {
+            foal = EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
+        } else {
+            WarmBloodEntity warmBloodEntity = (WarmBloodEntity) ageableMob;
+            foal = EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
+            int i = this.random.nextInt(9);
+
+            if (i < 4) {
+                this.getVariant();
+            } else if (i < 8) {
+                warmBloodEntity.getVariant();
+            } else {
+                Util.getRandom(Variant.values(), this.random);
+            }
+        }
+        this.setOffspringAttributes(ageableMob, foal);
+        return foal;
+    }
+
+    @Override
+    protected void defineSynchedData(){
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
+    }
+    public SlotAccess createEquipmentSlotAccess(final int p_149503_, final Predicate<ItemStack> p_149504_) {
+        return new SlotAccess() {
+            public ItemStack get() {
+                return WarmBloodEntity.this.inventory.getItem(p_149503_);
+            }
+
+            public boolean set(ItemStack p_149528_) {
+                if (!p_149504_.test(p_149528_)) {
+                    return false;
+                } else {
+                    WarmBloodEntity.this.inventory.setItem(p_149503_, p_149528_);
+                    WarmBloodEntity.this.updateContainerEquipment();
+                    return true;
+                }
+            }
+        };
+    }
+
+    //Saddleable
+    @Override
+    public SlotAccess getSlot(int p_149514_) {
+        int i = p_149514_ - 400;
+        if (i >= 0 && i < 2 && i < this.inventory.getContainerSize()) {
+            if (i == 0) {
+                return this.createEquipmentSlotAccess(i, (p_149518_) -> {
+                    return p_149518_.isEmpty() || p_149518_.is(Items.SADDLE);
+                });
+            }
+
+            if (i == 1) {
+                if (!this.canWearArmor()) {
+                    return SlotAccess.NULL;
+                }
+
+                return this.createEquipmentSlotAccess(i, (p_149516_) -> {
+                    return p_149516_.isEmpty() || this.isArmor(p_149516_);
+                });
+            }
+        }
+
+        int j = p_149514_ - 500 + 2;
+        return j >= 2 && j < this.inventory.getContainerSize() ? SlotAccess.forContainer(this.inventory, j) : super.getSlot(p_149514_);
+    }
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         if (!this.isBaby()) {
@@ -171,56 +342,4 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
     }
-
-
-    //Generates variant textures
-
-    public ResourceLocation getTextureLocation() {
-        return WarmbloodModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
-    }
-
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmBloodEntity.class, EntityDataSerializers.INT);
-
-    public int getVariant(){
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compoundNBT) {
-        super.readAdditionalSaveData(compoundNBT);
-        if(compoundNBT.contains("Variant")) {
-            setVariant(compoundNBT.getInt("Variant"));
-        }
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compoundNBT) {
-        super.addAdditionalSaveData(compoundNBT);
-        compoundNBT.putInt("Variant", getVariant());
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-
-        setVariant(new Random().nextInt(WarmbloodModel.Variant.values().length));
-
-        return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
-    }
-
-    @Nullable
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
-    }
-
-    @Override
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-    }
-
 }

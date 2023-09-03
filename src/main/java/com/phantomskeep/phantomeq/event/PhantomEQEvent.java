@@ -2,10 +2,10 @@ package com.phantomskeep.phantomeq.event;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.entity.WarmBloodEntity;
+import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
+import com.phantomskeep.phantomeq.render.WarmBloodFoalRender;
 import com.phantomskeep.phantomeq.render.WarmBloodRender;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -27,6 +27,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
                         SpawnPlacements.Type.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarmBloodEntity::checkAnimalSpawnRules);
 
+        event.put(EntityTypes.WARMBLOOD_FOAL.get(), WarmBloodFoalEntity.createBaseHorseAttributes().build());
+
+        SpawnPlacements.register
+                (EntityTypes.WARMBLOOD_FOAL.get(),
+                        SpawnPlacements.Type.ON_GROUND,
+                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarmBloodFoalEntity::checkAnimalSpawnRules);
+
 
     }
 
@@ -34,6 +41,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
     public static void clientSetupEvent(FMLClientSetupEvent event) {
 
         EntityRenderers.register(EntityTypes.WARMBLOOD.get(), WarmBloodRender::new);
+        EntityRenderers.register(EntityTypes.WARMBLOOD_FOAL.get(), WarmBloodFoalRender::new);
+
 
     }
 }
