@@ -1,5 +1,7 @@
 package com.phantomskeep.phantomeq.entity;
 
+import com.phantomskeep.phantomeq.entity.ai.HorseEatGrassGoal;
+import com.phantomskeep.phantomeq.entity.ai.HorseEatHayGoal;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import com.phantomskeep.phantomeq.item.ModItems;
 import com.phantomskeep.phantomeq.model.WarmbloodModel;
@@ -19,11 +21,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.animal.horse.Donkey;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.animal.horse.Variant;
+import net.minecraft.world.entity.animal.horse.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -54,6 +54,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         super(entityType, level);
         this.noCulling = true;
     }
+
 
     protected void randomizeAttributes() {
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth());
@@ -96,23 +97,29 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     }
 
 
-    private int isEatingGrass;
-    private EatBlockGoal eatBlockGoal;
+    private int iAmEating;
+    private HorseEatGrassGoal horseEatGrassGoal;
+    private HorseEatHayGoal horseEatHayGoal;
     protected void customServerAiStep() {
-        this.isEatingGrass = this.eatBlockGoal.getEatAnimationTick();
+        this.iAmEating = this.horseEatGrassGoal.getEatAnimationTick();
+        this.iAmEating = this.horseEatHayGoal.getEatAnimationTick();
         super.customServerAiStep();
     }
+
     public void aiStep() {
         if (this.level.isClientSide) {
-            this.isEatingGrass = Math.max(1, this.isEatingGrass - 1);
+            this.iAmEating = Math.max(1, this.iAmEating - 1);
         }
 
         super.aiStep();
     }
 
     public void registerGoals() {
-        this.eatBlockGoal = new EatBlockGoal(this);
-        this.goalSelector.addGoal(5, this.eatBlockGoal);
+        this.horseEatGrassGoal = new HorseEatGrassGoal(this);
+        this.goalSelector.addGoal(5, this.horseEatGrassGoal);
+
+        this.horseEatHayGoal = new HorseEatHayGoal(this);
+        this.goalSelector.addGoal(5, this.horseEatHayGoal);
 
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2D));
@@ -128,7 +135,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     private <E extends IAnimatable>PlayState predicate(AnimationEvent<E> event) {
 
         if (event.isMoving()) {
-            if (isEatingGrass > 0) {
+            if (iAmEating > 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("sprint", ILoopType.EDefaultLoopTypes.LOOP));
             } else
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
@@ -223,7 +230,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     public boolean canMate(Animal animal) {
         if (animal == this) {
             return false;
-        } else if (!(animal instanceof Donkey) && !(animal instanceof Horse)) {
+        } else if (!(animal instanceof Donkey) && !(animal instanceof WarmBloodEntity)) {
             return false;
         } else {
             return this.canBeParent() && ((WarmBloodEntity)animal).canBeParent();

@@ -98,8 +98,7 @@ public class PhantomEQ
             // Register a new block here
             LOGGER.info("HELLO from Register Block");
         }
-        static {
-            GeckoLibMod.DISABLE_IN_DEV = true;
-        }
+
     }
+
 }
