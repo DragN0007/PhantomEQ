@@ -1,7 +1,6 @@
 package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.model.WarmbloodFoalModel;
-import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -36,21 +35,21 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 
-public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
+public class QuarterHorseFoalEntity extends AbstractHorse implements IAnimatable {
 
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
-    public WarmBloodFoalEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
+    public QuarterHorseFoalEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
     }
 
-    private static final Predicate<LivingEntity> PARENT_WARMBLOOD_SELECTOR = (livingEntity) -> livingEntity instanceof WarmBloodEntity && ((WarmBloodEntity)livingEntity).isBred();
+    private static final Predicate<LivingEntity> PARENT_WARMBLOOD_SELECTOR = (livingEntity) -> livingEntity instanceof QuarterHorseEntity && ((QuarterHorseEntity)livingEntity).isBred();
     private static final TargetingConditions TARGET_MAMA = TargetingConditions.forNonCombat()
             .range(16.0D).ignoreLineOfSight().selector(PARENT_WARMBLOOD_SELECTOR);
     protected void followMommy() {
         if (this.isBred() && this.isBaby() && !this.isEating()) {
-            LivingEntity livingentity = this.level.getNearestEntity(WarmBloodEntity.class, TARGET_MAMA, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
+            LivingEntity livingentity = this.level.getNearestEntity(QuarterHorseEntity.class, TARGET_MAMA, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
             if (livingentity != null && this.distanceToSqr(livingentity) > 4.0D) {
                 this.navigation.createPath(livingentity, 0);
             }
@@ -139,7 +138,7 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
         return WarmbloodFoalModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
     }
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmBloodFoalEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(QuarterHorseFoalEntity.class, EntityDataSerializers.INT);
 
     public int getVariant(){
         return this.entityData.get(VARIANT);
