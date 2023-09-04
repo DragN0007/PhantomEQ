@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,12 +22,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.*;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
@@ -123,8 +124,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
 
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2D));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D, AbstractHorse.class));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D, WarmBloodEntity.class));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -207,8 +207,8 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putInt("Variant", getVariant());
 
-        if (compoundNBT.contains("peq_saddle", 10)) {
-            ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("peq_saddle"));
+        if (compoundNBT.contains("SaddleItem", 10)) {
+            ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("SaddleItem"));
             if (itemstack.is(ModItems.PEQ_SADDLE.get())) {
                 this.inventory.setItem(0, itemstack);
             }
@@ -283,12 +283,21 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
 
     //Saddleable
     @Override
+    public void equipSaddle(@Nullable SoundSource p_30546_) {
+        this.inventory.setItem(0, new ItemStack(ModItems.PEQ_SADDLE.get()));
+        if (p_30546_ != null) {
+            this.level.playSound((Player)null, this, SoundEvents.HORSE_SADDLE, p_30546_, 0.5F, 1.0F);
+        }
+
+    }
+
+    @Override
     public SlotAccess getSlot(int p_149514_) {
         int i = p_149514_ - 400;
         if (i >= 0 && i < 2 && i < this.inventory.getContainerSize()) {
             if (i == 0) {
                 return this.createEquipmentSlotAccess(i, (p_149518_) -> {
-                    return p_149518_.isEmpty() || p_149518_.is(Items.SADDLE);
+                    return p_149518_.isEmpty() || p_149518_.is(ModItems.PEQ_SADDLE.get());
                 });
             }
 

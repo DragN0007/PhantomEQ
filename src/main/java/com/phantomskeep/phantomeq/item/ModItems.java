@@ -24,7 +24,7 @@ public class ModItems {
 
     //SADDLES & TACK
     public static final RegistryObject<SaddleItem> PEQ_SADDLE = ITEMS.register("peq_saddle",
-            () -> new SaddleItem(new Item.Properties().tab(ModItemGroup.PEQ)));
+            () -> new SaddleItem(new Item.Properties().stacksTo(1).tab(ModItemGroup.PEQ)));
 
     //HORSE ITEMS
 

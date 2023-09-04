@@ -12,8 +12,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -43,25 +45,19 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
     }
 
     private static final Predicate<LivingEntity> PARENT_HORSE_SELECTOR = (livingEntity) -> {
-        return livingEntity instanceof AbstractHorse && ((AbstractHorse)livingEntity).isBred();
+        return livingEntity instanceof WarmBloodEntity && ((WarmBloodEntity)livingEntity).isBred();
     };
     private static final TargetingConditions MOMMY_TARGETING = TargetingConditions.forNonCombat()
             .range(16.0D).ignoreLineOfSight().selector(PARENT_HORSE_SELECTOR);
     protected void followMommy() {
         if (this.isBred() && this.isBaby() && !this.isEating()) {
-            LivingEntity livingentity = this.level.getNearestEntity(AbstractHorse.class, MOMMY_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
+            LivingEntity livingentity = this.level.getNearestEntity(WarmBloodEntity.class, MOMMY_TARGETING, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
             if (livingentity != null && this.distanceToSqr(livingentity) > 4.0D) {
                 this.navigation.createPath(livingentity, 0);
             }
         }
 
     }
-
-//    protected void randomizeAttributes() {
-//        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth());
-//        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.generateRandomSpeed());
-//        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateRandomJumpStrength());
-//    }
 
     //Sound code.
     protected void playGallopSound(SoundType p_30709_) {
@@ -94,6 +90,17 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
     protected SoundEvent getAngrySound() {
         super.getAngrySound();
         return SoundEvents.HORSE_ANGRY;
+    }
+
+
+    public void registerGoals() {
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
+        this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2D));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.addBehaviourGoals();
     }
 
 
