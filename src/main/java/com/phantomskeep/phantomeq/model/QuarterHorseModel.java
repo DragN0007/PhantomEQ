@@ -1,11 +1,12 @@
 package com.phantomskeep.phantomeq.model;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
 import com.phantomskeep.phantomeq.entity.WarmBloodEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class WarmbloodModel extends AnimatedGeoModel<WarmBloodEntity> {
+public class QuarterHorseModel extends AnimatedGeoModel<QuarterHorseEntity> {
 
     public enum Variant {
         A (new ResourceLocation(PhantomEQ.MODID, "textures/entities/henry.png")
@@ -28,17 +29,17 @@ public class WarmbloodModel extends AnimatedGeoModel<WarmBloodEntity> {
 
 
     @Override
-    public ResourceLocation getModelLocation(WarmBloodEntity object) {
+    public ResourceLocation getModelLocation(QuarterHorseEntity object) {
         return model;
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WarmBloodEntity object) {
+    public ResourceLocation getTextureLocation(QuarterHorseEntity object) {
         return object.getTextureLocation();
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(WarmBloodEntity animatable) {
+    public ResourceLocation getAnimationFileLocation(QuarterHorseEntity animatable) {
         return animation;
     }
 }

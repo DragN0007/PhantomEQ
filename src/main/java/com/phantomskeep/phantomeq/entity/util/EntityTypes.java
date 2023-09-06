@@ -20,7 +20,7 @@ public class EntityTypes {
     public static final RegistryObject<EntityType<WarmBloodEntity>> WARMBLOOD = ENTITY_TYPES.register("warmblood",
             () -> EntityType.Builder.of(WarmBloodEntity::new,
                             MobCategory.CREATURE)
-                    .sized(1.5f,2f)
+                    .sized(1.5f,2.2f)
                     .build(new ResourceLocation(MODID,"warmblood").toString()));
 
     public static final RegistryObject<EntityType<WarmBloodFoalEntity>> WARMBLOOD_FOAL = ENTITY_TYPES.register("warmblood_foal",

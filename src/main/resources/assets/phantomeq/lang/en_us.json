@@ -3,6 +3,10 @@
   "entity.phantomeq.warmblood": "Warmblood Horse",
   "entity.phantomeq.warmblood_foal": "Warmblood Foal",
 
+  "item.phantomeq.quarterhorse_spawn_egg": "Quarter Horse Spawn Egg",
+  "entity.phantomeq.quarterhorse": "Quarter Horse",
+  "entity.phantomeq.quarterhorse_foal": "Quarter Horse Foal",
+
   "item.phantomeq.peq_saddle": "PEQ Saddle",
 
   "itemGroup.PEQ": "Phantom Equestrian Mod"

@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,11 +24,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
@@ -44,6 +47,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 
@@ -174,7 +178,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
 //        }
 
     public Vec3 getLeashOffset() {
-        return new Vec3(0.0D, (double)(0.9F * this.getEyeHeight()), (double)(this.getBbWidth() * 0.9F));
+        return new Vec3(0.0D, (double)(1F * this.getEyeHeight()), (double)(this.getBbWidth() * 1F));
     }
 
 
@@ -206,14 +210,32 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putInt("Variant", getVariant());
+        this.setEating(compoundNBT.getBoolean("EatingHaystack"));
+        this.setBred(compoundNBT.getBoolean("Bred"));
+        this.setTemper(compoundNBT.getInt("Temper"));
+        this.setTamed(compoundNBT.getBoolean("Tame"));
+        UUID uuid;
+        if (compoundNBT.hasUUID("Owner")) {
+            uuid = compoundNBT.getUUID("Owner");
+        } else {
+            String s = compoundNBT.getString("Owner");
+            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
+        }
 
-        if (compoundNBT.contains("SaddleItem", 10)) {
-            ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("SaddleItem"));
+        if (uuid != null) {
+            this.setOwnerUUID(uuid);
+        }
+
+        if (compoundNBT.contains("PEQSaddleItem", 10)) {
+            ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("PEQSaddleItem"));
             if (itemstack.is(ModItems.PEQ_SADDLE.get())) {
                 this.inventory.setItem(0, itemstack);
             }
         }
+
+        this.updateContainerEquipment();
     }
+
 
     @Nullable
     @Override
@@ -296,9 +318,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         int i = p_149514_ - 400;
         if (i >= 0 && i < 2 && i < this.inventory.getContainerSize()) {
             if (i == 0) {
-                return this.createEquipmentSlotAccess(i, (p_149518_) -> {
-                    return p_149518_.isEmpty() || p_149518_.is(ModItems.PEQ_SADDLE.get());
-                });
+                return this.createEquipmentSlotAccess(i, (p_149518_) -> p_149518_.isEmpty() || p_149518_.is(ModItems.PEQ_SADDLE.get()));
             }
 
             if (i == 1) {
@@ -306,12 +326,9 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
                     return SlotAccess.NULL;
                 }
 
-                return this.createEquipmentSlotAccess(i, (p_149516_) -> {
-                    return p_149516_.isEmpty() || this.isArmor(p_149516_);
-                });
+                return this.createEquipmentSlotAccess(i, (p_149516_) -> p_149516_.isEmpty() || this.isArmor(p_149516_));
             }
         }
-
         int j = p_149514_ - 500 + 2;
         return j >= 2 && j < this.inventory.getContainerSize() ? SlotAccess.forContainer(this.inventory, j) : super.getSlot(p_149514_);
     }
