@@ -139,13 +139,13 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     private <E extends IAnimatable>PlayState predicate(AnimationEvent<E> event) {
 
         if (event.isMoving()) {
-            if (iAmEating > 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("sprint", ILoopType.EDefaultLoopTypes.LOOP));
+            if (isVehicle()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.run", ILoopType.EDefaultLoopTypes.LOOP));
             } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.walk", ILoopType.EDefaultLoopTypes.LOOP));
 
         } else
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.new", ILoopType.EDefaultLoopTypes.LOOP));
 
 
         return PlayState.CONTINUE;
