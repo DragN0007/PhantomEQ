@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.block;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.block.decorvox.Shelf;
 import com.phantomskeep.phantomeq.item.ModItemGroup;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -21,6 +22,9 @@ public class ModBlocks {
             = DeferredRegister.create(ForgeRegistries.BLOCKS, PhantomEQ.MODID);
 
 
+    //DECOR
+    public static final RegistryObject<Shelf> STANDING_SHELF = registerBlock("standing_shelf",
+            () -> new Shelf());
 
 
 
@@ -42,16 +46,6 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItemGroup.PEQ)));
-    }
-
-    private static <T extends Block>RegistryObject<T> registerPlantBlock(String name, Supplier<T> block){
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerPlantBlockItem(name, toReturn);
-        return toReturn;
-    }
-    private static <T extends Block> void registerPlantBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(ModItemGroup.PEQ)));
     }
