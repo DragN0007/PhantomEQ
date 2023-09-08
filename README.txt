@@ -16,6 +16,7 @@ Head Developers:
 -Lechecat (Head Admin)
 -Dande (Head Artist)
 -K8sk8 (Head Game Design)
+-RileyCasper
 
 Horse Model(s) Artists: 
 -Ori 
@@ -23,6 +24,9 @@ Horse Model(s) Artists:
 
 Animators:
 -NoahHeart
+
+Decor Artists:
+-Dickzo
 
 Coders: 
 -DragN
