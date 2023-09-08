@@ -19,6 +19,10 @@ Head Developers:
 
 Horse Model(s) Artists: 
 -Ori 
+-Bagek
+
+Animators:
+-NoahHeart
 
 Coders: 
 -DragN
