@@ -11,6 +11,22 @@
 
   "block.phantomeq.standing_shelf": "Standing Shelf",
   "block.phantomeq.water_trough": "Small Water Trough",
+  "block.phantomeq.fence_feeder_black": "Hook Feeder Black",
+  "block.phantomeq.fence_feeder_blue": "Hook Feeder Blue",
+  "block.phantomeq.fence_feeder_brown": "Hook Feeder Brown",
+  "block.phantomeq.fence_feeder_cyan": "Hook Feeder Cyan",
+  "block.phantomeq.fence_feeder_gray": "Hook Feeder Gray",
+  "block.phantomeq.fence_feeder_green": "Hook Feeder Green",
+  "block.phantomeq.fence_feeder_light_blue": "Hook Feeder Light Blue",
+  "block.phantomeq.fence_feeder_light_gray": "Hook Feeder Light Gray",
+  "block.phantomeq.fence_feeder_lime": "Hook Feeder Lime Green",
+  "block.phantomeq.fence_feeder_magenta": "Hook Feeder Magenta",
+  "block.phantomeq.fence_feeder_orange": "Hook Feeder Orange",
+  "block.phantomeq.fence_feeder_pink": "Hook Feeder Pink",
+  "block.phantomeq.fence_feeder_purple": "Hook Feeder Purple",
+  "block.phantomeq.fence_feeder_red": "Hook Feeder Red",
+  "block.phantomeq.fence_feeder_white": "Hook Feeder White",
+  "block.phantomeq.fence_feeder_yellow": "Hook Feeder Yellow",
 
   "itemGroup.PEQ": "Phantom Equestrian Mod"
 }
