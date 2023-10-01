@@ -27,6 +27,7 @@ Animators:
 
 Decor Artists:
 -Dickzo
+-Valentine
 
 Coders: 
 -DragN
