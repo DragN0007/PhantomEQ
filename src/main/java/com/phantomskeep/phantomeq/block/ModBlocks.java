@@ -2,6 +2,7 @@ package com.phantomskeep.phantomeq.block;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.block.decorvox.Shelf;
+import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
 import com.phantomskeep.phantomeq.item.ModItemGroup;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -25,6 +26,8 @@ public class ModBlocks {
     //DECOR
     public static final RegistryObject<Shelf> STANDING_SHELF = registerBlock("standing_shelf",
             () -> new Shelf());
+    public static final RegistryObject<WaterTrough> WATER_TROUGH = registerBlock("water_trough",
+            () -> new WaterTrough());
 
 
 
