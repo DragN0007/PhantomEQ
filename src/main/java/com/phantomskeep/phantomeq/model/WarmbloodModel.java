@@ -8,9 +8,8 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class WarmbloodModel extends AnimatedGeoModel<WarmBloodEntity> {
 
     public enum Variant {
-        A (new ResourceLocation(PhantomEQ.MODID, "textures/entities/henry.png")
-
-        );
+        A (new ResourceLocation(PhantomEQ.MODID, "textures/entities/henry.png")),
+        B (new ResourceLocation(PhantomEQ.MODID, "textures/entities/shadowmere.png"));
 
         
         public final ResourceLocation resourceLocation;
