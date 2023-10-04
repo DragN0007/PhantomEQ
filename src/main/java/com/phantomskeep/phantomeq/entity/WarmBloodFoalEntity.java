@@ -107,12 +107,12 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
 
             if (event.isMoving()) {
                 if (isSprinting()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("sprint", ILoopType.EDefaultLoopTypes.LOOP));
-            } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.run", ILoopType.EDefaultLoopTypes.LOOP));
+                } else
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.slow_walk", ILoopType.EDefaultLoopTypes.LOOP));
 
             } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.horse.new", ILoopType.EDefaultLoopTypes.LOOP));
 
 
         return PlayState.CONTINUE;

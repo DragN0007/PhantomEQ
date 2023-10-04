@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.18.2-0.1'
+version = '1.18.2-0.1-ALPHA'
 group = 'com.phantomkeeps.phantomeq' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'PhantomEQ'
 
@@ -35,11 +35,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-
-
             property 'forge.logging.markers', 'REGISTRIES'
-
-
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
@@ -56,7 +52,6 @@ minecraft {
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
@@ -118,12 +113,22 @@ repositories {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
+    maven {
+        name "KosmX's maven"
+        url 'https://maven.kosmx.dev/'
+    }
 }
 
 dependencies {
 
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.0'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
+
+    //TODO PlayerAnimations & Bendy-Lib
+//    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${project.player_anim}")
+//    runtimeOnly fg.deobf("io.github.kosmx.bendy-lib:bendy-lib-forge:${project.bendylib_version}")
+
+    //Omg help me im so stupid how does this work ??
 
 }
 

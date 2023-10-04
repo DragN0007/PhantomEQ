@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.block;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.Shelf;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
 import com.phantomskeep.phantomeq.item.ModItemGroup;
@@ -24,10 +25,42 @@ public class ModBlocks {
 
 
     //DECOR
-    public static final RegistryObject<Shelf> STANDING_SHELF = registerBlock("standing_shelf",
-            () -> new Shelf());
+//    public static final RegistryObject<Shelf> STANDING_SHELF = registerBlock("standing_shelf",
+//            () -> new Shelf());
     public static final RegistryObject<WaterTrough> WATER_TROUGH = registerBlock("water_trough",
             () -> new WaterTrough());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLACK = registerBlock("fence_feeder_black",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLUE = registerBlock("fence_feeder_blue",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BROWN = registerBlock("fence_feeder_brown",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_CYAN = registerBlock("fence_feeder_cyan",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_GRAY = registerBlock("fence_feeder_gray",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_GREEN = registerBlock("fence_feeder_green",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIGHT_BLUE = registerBlock("fence_feeder_light_blue",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIGHT_GRAY = registerBlock("fence_feeder_light_gray",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIME = registerBlock("fence_feeder_lime",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_MAGENTA = registerBlock("fence_feeder_magenta",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_ORANGE = registerBlock("fence_feeder_orange",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_PINK = registerBlock("fence_feeder_pink",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_PURPLE = registerBlock("fence_feeder_purple",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_RED = registerBlock("fence_feeder_red",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_WHITE = registerBlock("fence_feeder_white",
+            () -> new FenceFeeder());
+    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_YELLOW = registerBlock("fence_feeder_yellow",
+            () -> new FenceFeeder());
 
 
 
@@ -50,8 +83,9 @@ public class ModBlocks {
     }
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItemGroup.PEQ)));
+                new Item.Properties().tab(ModItemGroup.DECOR)));
     }
+
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

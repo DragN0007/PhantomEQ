@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "phantomeq:block/decor/fencefeeder/fence_feeder_lime",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "phantomeq:block/decor/fencefeeder/fence_feeder_lime"
+    },
+    "facing=south": {
+      "model": "phantomeq:block/decor/fencefeeder/fence_feeder_lime",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "phantomeq:block/decor/fencefeeder/fence_feeder_lime",
+      "y": 270
+    }
+  }
+}
