@@ -32,6 +32,7 @@ import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
@@ -56,9 +57,19 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
 
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
+    private int animTimer = 0;
+    private int idleAnimCooldown = 0;
     public WarmBloodEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+    }
+    @Override
+    public void tick() {
+        if (this.level.isClientSide) {
+            animTimer = Math.max(animTimer - 1, 0);
+            idleAnimCooldown = Math.max(idleAnimCooldown - 1, 0);
+        }
+        super.tick();
     }
 
 
@@ -213,6 +224,8 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         }
     }
 
+    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_GENDER =
+            SynchedEntityData.defineId(WarmBloodEntity.class, EntityDataSerializers.INT);
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);

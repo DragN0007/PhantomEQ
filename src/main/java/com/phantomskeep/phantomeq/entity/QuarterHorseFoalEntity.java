@@ -44,10 +44,11 @@ public class QuarterHorseFoalEntity extends AbstractHorse implements IAnimatable
         this.noCulling = true;
     }
 
-    private static final Predicate<LivingEntity> PARENT_WARMBLOOD_SELECTOR = (livingEntity) -> livingEntity instanceof QuarterHorseEntity && ((QuarterHorseEntity)livingEntity).isBred();
+    /* private static final Predicate<LivingEntity> PARENT_WARMBLOOD_SELECTOR = (livingEntity) -> livingEntity instanceof QuarterHorseEntity && ((QuarterHorseEntity)livingEntity).isBred();
     private static final TargetingConditions TARGET_MAMA = TargetingConditions.forNonCombat()
             .range(16.0D).ignoreLineOfSight().selector(PARENT_WARMBLOOD_SELECTOR);
-    protected void followMommy() {
+
+     protected void followMommy() {
         if (this.isBred() && this.isBaby() && !this.isEating()) {
             LivingEntity livingentity = this.level.getNearestEntity(QuarterHorseEntity.class, TARGET_MAMA, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(16.0D));
             if (livingentity != null && this.distanceToSqr(livingentity) > 4.0D) {
@@ -55,7 +56,7 @@ public class QuarterHorseFoalEntity extends AbstractHorse implements IAnimatable
             }
         }
 
-    }
+    } */
 
     //Sound code.
     protected void playGallopSound(SoundType p_30709_) {
@@ -107,8 +108,8 @@ public class QuarterHorseFoalEntity extends AbstractHorse implements IAnimatable
             if (event.isMoving()) {
                 if (isSprinting()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("sprint", ILoopType.EDefaultLoopTypes.LOOP));
-            } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
+
+            } else event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
 
             } else
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));

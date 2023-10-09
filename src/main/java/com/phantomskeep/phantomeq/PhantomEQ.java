@@ -29,7 +29,7 @@ import static com.phantomskeep.phantomeq.PhantomEQ.MODID;
 public class PhantomEQ
 {
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MODID = "phantomeq";
 
     public PhantomEQ()
