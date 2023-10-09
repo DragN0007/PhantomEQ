@@ -1,15 +1,9 @@
 package com.phantomskeep.phantomeq.event;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
-import com.phantomskeep.phantomeq.entity.QuarterHorseFoalEntity;
-import com.phantomskeep.phantomeq.entity.WarmBloodEntity;
-import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
+import com.phantomskeep.phantomeq.entity.*;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
-import com.phantomskeep.phantomeq.render.QuarterHorseFoalRender;
-import com.phantomskeep.phantomeq.render.QuarterHorseRender;
-import com.phantomskeep.phantomeq.render.WarmBloodFoalRender;
-import com.phantomskeep.phantomeq.render.WarmBloodRender;
+import com.phantomskeep.phantomeq.render.*;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -56,6 +50,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, QuarterHorseFoalEntity::checkAnimalSpawnRules);
 
 
+
+
     }
 
     @SubscribeEvent
@@ -65,6 +61,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
         EntityRenderers.register(EntityTypes.WARMBLOOD_FOAL.get(), WarmBloodFoalRender::new);
         EntityRenderers.register(EntityTypes.QUARTERHORSE.get(), QuarterHorseRender::new);
         EntityRenderers.register(EntityTypes.QUARTERHORSE_FOAL.get(), QuarterHorseFoalRender::new);
+
 
 
     }
