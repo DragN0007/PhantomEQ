@@ -2,7 +2,7 @@ package com.phantomskeep.phantomeq.entity.util;
 
 import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
 import com.phantomskeep.phantomeq.entity.QuarterHorseFoalEntity;
-import com.phantomskeep.phantomeq.entity.WarmBloodEntity;
+import com.phantomskeep.phantomeq.entity.WarmbloodHorseEntity;
 import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -17,9 +17,9 @@ public class EntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
 
-    public static final RegistryObject<EntityType<WarmBloodEntity>> WARMBLOOD =
+    public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD =
             ENTITY_TYPES.register("warmblood",
-            () -> EntityType.Builder.of(WarmBloodEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(WarmbloodHorseEntity::new, MobCategory.CREATURE)
                     .sized(1.5f,2.2f)
                     .build(new ResourceLocation(MODID,"warmblood").toString()));
 
