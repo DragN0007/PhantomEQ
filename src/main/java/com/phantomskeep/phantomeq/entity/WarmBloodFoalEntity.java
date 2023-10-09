@@ -45,6 +45,7 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
         this.noCulling = true;
     }
 
+    /*
     private static final Predicate<LivingEntity> PARENT_WARMBLOOD_SELECTOR = (livingEntity) -> livingEntity instanceof WarmBloodEntity && ((WarmBloodEntity)livingEntity).isBred();
     private static final TargetingConditions TARGET_MAMA = TargetingConditions.forNonCombat()
             .range(16.0D).ignoreLineOfSight().selector(PARENT_WARMBLOOD_SELECTOR);
@@ -57,6 +58,7 @@ public class WarmBloodFoalEntity extends AbstractHorse implements IAnimatable {
         }
 
     }
+    */
 
     //Sound code.
     protected void playGallopSound(SoundType p_30709_) {
