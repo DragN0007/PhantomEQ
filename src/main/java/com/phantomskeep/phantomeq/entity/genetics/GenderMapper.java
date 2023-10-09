@@ -1,4 +1,4 @@
-package com.phantomskeep.phantomeq.entity.dataids;
+package com.phantomskeep.phantomeq.entity.genetics;
 
 import java.util.*;
 
