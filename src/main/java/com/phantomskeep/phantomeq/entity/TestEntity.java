@@ -23,13 +23,18 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.builder.ILoopType;
+import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TestEntity extends AbstractPhantHorse {
+public class TestEntity extends AbstractPhantHorse implements IAnimatable{
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private static final ResourceLocation LOOT_TABLE = new ResourceLocation("minecraft", "entities/horse");
 
@@ -95,5 +100,16 @@ public class TestEntity extends AbstractPhantHorse {
 
 
         return PlayState.CONTINUE;
+    }
+
+    //Controls animations
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this,"controller",1,this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }
