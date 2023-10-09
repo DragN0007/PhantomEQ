@@ -71,7 +71,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 4)
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MOVEMENT_SPEED, 0.27)
                 ;}
 
 
