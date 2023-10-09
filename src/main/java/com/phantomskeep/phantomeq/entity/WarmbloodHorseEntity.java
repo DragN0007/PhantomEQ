@@ -25,14 +25,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
 import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
@@ -53,13 +50,13 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 
-public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
+public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
 
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     private int animTimer = 0;
     private int idleAnimCooldown = 0;
-    public WarmBloodEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
+    public WarmbloodHorseEntity(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
     }
@@ -146,7 +143,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
 
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
         this.goalSelector.addGoal(1, new RunAroundLikeCrazyGoal(this, 1.2D));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D, WarmBloodEntity.class));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D, WarmbloodHorseEntity.class));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.7D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -206,7 +203,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         return WarmbloodModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
     }
 
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmBloodEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmbloodHorseEntity.class, EntityDataSerializers.INT);
 
     public int getVariant(){
         return this.entityData.get(VARIANT);
@@ -225,7 +222,7 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     }
 
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_GENDER =
-            SynchedEntityData.defineId(WarmBloodEntity.class, EntityDataSerializers.INT);
+            SynchedEntityData.defineId(WarmbloodHorseEntity.class, EntityDataSerializers.INT);
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
@@ -272,10 +269,10 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     public boolean canMate(Animal animal) {
         if (animal == this) {
             return false;
-        } else if (!(animal instanceof Donkey) && !(animal instanceof WarmBloodEntity)) {
+        } else if (!(animal instanceof Donkey) && !(animal instanceof WarmbloodHorseEntity)) {
             return false;
         } else {
-            return this.canBeParent() && ((WarmBloodEntity)animal).canBeParent();
+            return this.canBeParent() && ((WarmbloodHorseEntity)animal).canBeParent();
         }
     }
     @Nullable
@@ -284,14 +281,14 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
         if (ageableMob instanceof Donkey) {
             foal = EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
         } else {
-            WarmBloodEntity warmBloodEntity = (WarmBloodEntity) ageableMob;
+            WarmbloodHorseEntity warmbloodHorseEntity = (WarmbloodHorseEntity) ageableMob;
             foal = EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
             int i = this.random.nextInt(9);
 
             if (i < 4) {
                 this.getVariant();
             } else if (i < 8) {
-                warmBloodEntity.getVariant();
+                warmbloodHorseEntity.getVariant();
             } else {
                 Util.getRandom(Variant.values(), this.random);
             }
@@ -308,15 +305,15 @@ public class WarmBloodEntity extends AbstractHorse implements IAnimatable {
     public SlotAccess createEquipmentSlotAccess(final int p_149503_, final Predicate<ItemStack> p_149504_) {
         return new SlotAccess() {
             public ItemStack get() {
-                return WarmBloodEntity.this.inventory.getItem(p_149503_);
+                return WarmbloodHorseEntity.this.inventory.getItem(p_149503_);
             }
 
             public boolean set(ItemStack p_149528_) {
                 if (!p_149504_.test(p_149528_)) {
                     return false;
                 } else {
-                    WarmBloodEntity.this.inventory.setItem(p_149503_, p_149528_);
-                    WarmBloodEntity.this.updateContainerEquipment();
+                    WarmbloodHorseEntity.this.inventory.setItem(p_149503_, p_149528_);
+                    WarmbloodHorseEntity.this.updateContainerEquipment();
                     return true;
                 }
             }
