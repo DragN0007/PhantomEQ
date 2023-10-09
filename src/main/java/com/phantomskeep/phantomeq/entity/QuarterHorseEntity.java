@@ -233,7 +233,9 @@ public class QuarterHorseEntity extends AbstractHorse implements IAnimatable {
         } else if (!(animal instanceof Donkey) && !(animal instanceof QuarterHorseEntity)) {
             return false;
         } else {
-            return this.canBeParent() && ((QuarterHorseEntity)animal).canBeParent();
+            if (!this.canBeParent()) return false;
+            assert animal instanceof QuarterHorseEntity;
+            return ((QuarterHorseEntity)animal).canBeParent();
         }
     }
     @Nullable
