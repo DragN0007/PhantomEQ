@@ -31,7 +31,7 @@ public class PhantomEQ
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MODID = "phantomeq";
-
+    public static PhantomEQ instance;
     public PhantomEQ()
     {
         // Register the setup method for modloading

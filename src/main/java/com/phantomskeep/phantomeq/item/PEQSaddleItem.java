@@ -15,8 +15,7 @@ public class PEQSaddleItem extends Item {
     }
 
     public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
-        if (livingEntity instanceof Saddleable && livingEntity.isAlive()) {
-            Saddleable saddleable = (Saddleable) livingEntity;
+        if (livingEntity instanceof Saddleable saddleable && livingEntity.isAlive()) {
             if (!saddleable.isSaddled() && saddleable.isSaddleable()) {
                 if (!player.level.isClientSide) {
                     saddleable.equipSaddle(SoundSource.NEUTRAL);
