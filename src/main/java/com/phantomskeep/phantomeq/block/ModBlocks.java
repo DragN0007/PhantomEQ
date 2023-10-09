@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.block;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
 import com.phantomskeep.phantomeq.item.ModItemGroup;
@@ -26,6 +27,8 @@ public class ModBlocks {
     //DECOR
     public static final RegistryObject<WaterTrough> WATER_TROUGH = registerBlock("water_trough",
             () -> new WaterTrough());
+    public static final RegistryObject<Bucket> BUCKET = registerBlock("bucket",
+            () -> new Bucket());
     public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLACK = registerBlock("fence_feeder_black",
             () -> new FenceFeeder());
     public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLUE = registerBlock("fence_feeder_blue",
