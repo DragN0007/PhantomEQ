@@ -2,6 +2,8 @@ package com.phantomskeep.phantomeq;
 
 import com.mojang.logging.LogUtils;
 import com.phantomskeep.phantomeq.block.ModBlocks;
+import com.phantomskeep.phantomeq.config.PhantomEQClientConfig;
+import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.level.block.Block;
@@ -12,7 +14,9 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -52,6 +56,9 @@ public class PhantomEQ
         EntityTypes.ENTITY_TYPES.register(eventBus);
         // GeckoLib
         GeckoLib.initialize();
+        //Register Configs
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, PhantomEQClientConfig.SPEC, "phantomeq-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PhantomEQCommonConfig.SPEC, "phantomeq-common.toml");
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
