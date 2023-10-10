@@ -61,7 +61,7 @@ public class PhantomEQ
     {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        LOGGER.info("ALFALFA BALE >> {}", ModBlocks.ALFALFA_BALE.get().getRegistryName());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
