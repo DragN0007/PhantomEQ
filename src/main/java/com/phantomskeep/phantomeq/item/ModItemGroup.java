@@ -21,5 +21,10 @@ public class ModItemGroup {
         }
     };
 
+    public static final CreativeModeTab FOOD = new CreativeModeTab("FOOD") {
+        @Override
+        public ItemStack makeIcon() { return new ItemStack(ModItems.REGULAR_FEED.get()); }
+    };
+
 
 }

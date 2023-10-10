@@ -30,13 +30,13 @@ public class ModItems {
 
     //HORSE ITEMS
     public static final RegistryObject<Item> ORGANIC_FEED = ITEMS.register("organic_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.FOOD)));
     public static final RegistryObject<Item> REGULAR_FEED = ITEMS.register("regular_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.FOOD)));
     public static final RegistryObject<Item> SPORT_FEED = ITEMS.register("sport_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.FOOD)));
     public static final RegistryObject<Item> MIXED_FEED = ITEMS.register("mixed_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItemGroup.FOOD)));
 
 
 

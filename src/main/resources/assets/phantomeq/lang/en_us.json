@@ -14,8 +14,11 @@
   "item.phantomeq.regular_feed": "Regular Feed",
   "item.phantomeq.sport_feed": "Sport-Horse Feed",
 
+  "block.phantomeq.alfalfa_bale": "Alfalfa Bale",
+
   "block.phantomeq.standing_shelf": "Standing Shelf",
   "block.phantomeq.water_trough": "Small Water Trough",
+  "block.phantomeq.bucket": "Bucket",
   "block.phantomeq.fence_feeder_black": "Hook Feeder Black",
   "block.phantomeq.fence_feeder_blue": "Hook Feeder Blue",
   "block.phantomeq.fence_feeder_brown": "Hook Feeder Brown",
@@ -34,5 +37,6 @@
   "block.phantomeq.fence_feeder_yellow": "Hook Feeder Yellow",
 
   "itemGroup.PEQ": "Phantom Equestrian Mod",
-  "itemGroup.DECOR": "PhantomEQ Decor"
+  "itemGroup.DECOR": "PhantomEQ Decor",
+  "itemGroup.FOOD": "PhantomEQ Food"
 }
