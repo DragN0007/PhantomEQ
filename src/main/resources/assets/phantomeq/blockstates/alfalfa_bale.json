@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "phantomeq:block/decor/bales/alfalfa_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "phantomeq:block/decor/bales/alfalfa_bale"
+    },
+    "axis=z": {
+      "model": "phantomeq:block/decor/bales/alfalfa_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -1,14 +1,19 @@
 package com.phantomskeep.phantomeq.block;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HayBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,10 +28,10 @@ public class ModBlocks {
 
 
     //DECOR
-//    public static final RegistryObject<Shelf> STANDING_SHELF = registerBlock("standing_shelf",
-//            () -> new Shelf());
     public static final RegistryObject<WaterTrough> WATER_TROUGH = registerBlock("water_trough",
             () -> new WaterTrough());
+    public static final RegistryObject<Bucket> BUCKET = registerBlock("bucket",
+            () -> new Bucket());
     public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLACK = registerBlock("fence_feeder_black",
             () -> new FenceFeeder());
     public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLUE = registerBlock("fence_feeder_blue",
@@ -61,6 +66,11 @@ public class ModBlocks {
             () -> new FenceFeeder());
 
 
+    //BALES
+    public static final RegistryObject<HayBlock> ALFALFA_BALE = registerFoodBlock("alfalfa_bale",
+            () -> new HayBlock(Block.Properties.copy(Blocks.HAY_BLOCK)));
+
+
 
 
 
@@ -82,6 +92,17 @@ public class ModBlocks {
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(ModItems.DECOR)));
+    }
+
+
+    private static <T extends Block>RegistryObject<T> registerFoodBlock(String name, Supplier<T> block){
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerFoodBlockItem(name, toReturn);
+        return toReturn;
+    }
+    private static <T extends Block> void registerFoodBlockItem(String name, RegistryObject<T> block) {
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+                new Item.Properties().tab(ModItemGroup.FOOD)));
     }
 
 
