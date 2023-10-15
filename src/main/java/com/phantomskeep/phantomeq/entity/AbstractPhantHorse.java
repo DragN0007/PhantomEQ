@@ -1,28 +1,39 @@
 package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.genetics.Breed;
+import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.genetics.IGeneticEntity;
+import com.phantomskeep.phantomeq.entity.genetics.Species;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.RandomSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import software.bernie.geckolib3.core.IAnimatable;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -35,6 +46,15 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
 
     public AbstractPhantHorse(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
+    }
+
+    public static final Ingredient BREEDING_ITEMS = Ingredient.of(Items.WHEAT);
+    public static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.WHEAT);
+
+    public abstract Species getSpecies();
+
+    public boolean canEquipChest() {
+        return true;
     }
 
     @Override
@@ -56,12 +76,98 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         this.entityData.define(FERTILE, true);
     }
 
-    @Override
-    void setBaby(boolean isBaby) {
-        this.setAge(isBaby ? this.getBirthAge() : 0);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        Item item = itemstack.getItem();
+
+        if (isFood(itemstack)) {
+            return super.mobInteract(player, hand);
+        }
+        if (this.isBreedingFood(itemstack)) {
+            this.fedBreedingFood(player, itemstack);
+        }
+        return super.mobInteract(player, hand);
     }
 
     @Override
+    public boolean canMate(Animal pOtherAnimal) {
+        if (pOtherAnimal == this) {
+            return false;
+        } else if (pOtherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.isInLove() && pOtherAnimal.isInLove();
+        }
+    }
+    public void setBaby(boolean isBaby) {
+        this.setAge(isBaby ? this.getBirthAge() : 0);
+    }
+
+
+    public boolean isMale() {
+        return (Boolean) this.entityData.get(GENDER);
+    }
+
+
+    public void setMale(boolean gender) {
+        this.entityData.set(GENDER, gender);
+    }
+    public boolean isFertile() {
+        return (Boolean) this.entityData.get(FERTILE);
+    }
+    public int getBirthAge() {
+        return PhantomEQCommonConfig.getHorseBirthAge();
+    }
+
+    public int getRebreedTicks() {
+        return PhantomEQCommonConfig.getHorseRebreedTicks(this.isMale());
+    }
+
+    public boolean isBreedingFood(ItemStack pStack) {
+        return BREEDING_ITEMS.test(pStack);
+    }
+    public InteractionResult fedBreedingFood(Player pPlayer, ItemStack pStack) {
+        boolean flag = this.handleEatingBreedingFood(pPlayer, pStack);
+        if (!pPlayer.getAbilities().instabuild) {
+            if (pStack.getItem() == Items.WHEAT)
+                pStack.shrink(1);
+        }
+
+        if (this.level.isClientSide) {
+            return InteractionResult.CONSUME;
+        } else {
+            return flag ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        }
+    }
+
+    public boolean handleEatingBreedingFood(Player pPlayer, ItemStack pStack) {
+        boolean flag = false;
+        float f = 0.0F;
+        int i = 0;
+        int j = 0;
+        Item item = pStack.getItem();
+        if (item == Items.WHEAT) {
+            if (!this.level.isClientSide  && this.getAge() == 0 && !this.isInLove()) {
+                flag = true;
+                this.setInLove(pPlayer);
+            }
+        }
+
+        if (this.isBaby()) {
+            this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+            if (!this.level.isClientSide) {
+                this.ageUp(i);
+            }
+            flag = true;
+        }
+        return flag;
+    }
+
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance instance, MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+        return super.finalizeSpawn(levelAccessor, instance, spawnType, groupData, tag);
+    }
+
+   /* @Override
     public void spawnChildFromBreeding(ServerLevel world, Animal mate) {
         // If vanilla mate, handle the vanilla way
         if (!(mate instanceof IGeneticEntity)) {
@@ -83,10 +189,11 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         }
 
         int numFoals = this.getTwinChance();
-        List<AgeableMob> foals = new ArrayList<>();
+        List foals = new List();
+        AgeableMob ageableentity = null;
         for (int i = 0; i < numFoals; ++i) {
 
-            AgeableMob ageableentity = this.getBreedOffspring(world, mate);
+            ageableentity = this.getBreedOffspring(world, mate);
             // If ageableentity is null, leave this and the mate in love mode to try again
             // Note posting an event with a null child could cause crashes with other
             // mods that do not check their input carefully, so we don't do that
@@ -102,7 +209,7 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
             }
             spawnChild(ageableentity, world);
         }
-        foals.add(ageableentity);
+        foals.add(String.valueOf(ageableentity));
 
         // Reset love state
         this.setAge(this.getRebreedTicks());
@@ -115,14 +222,14 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
             int xp = this.getRandom().nextInt(7) + 1;
             world.addFreshEntity(new ExperienceOrb(world, this.getX(), this.getY(), this.getZ(), xp));
         }
+    }
 
-        private void spawnChild (AgeableMob child, ServerLevel world){
-            child.setBaby(true);
-            child.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-            world.addFreshEntity(child);
-            // Spawn heart particles
-            world.broadcastEntityEvent(this, (byte) 18);
-        }
+    private void spawnChild(AgeableMob child, ServerLevel world) {
+        child.setBaby(true);
+        child.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+        world.addFreshEntity(child);
+        // Spawn heart particles
+        world.broadcastEntityEvent(this, (byte) 18);
     }
 
     abstract AbstractHorse getChild(ServerLevel world, AgeableMob otherparent);
@@ -157,31 +264,9 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         }
         if (child instanceof AbstractPhantHorse) {
             AbstractPhantHorse foal = (AbstractPhantHorse) child;
-                foal.setMale(this.random.nextBoolean());
-                foal.setAge(PhantomEQCommonConfig.GROWTH.getMinAge());
-            }
-            return child;
+            foal.setMale(this.random.nextBoolean());
+            foal.setAge(PhantomEQCommonConfig.GROWTH.getMinAge());
         }
-    @Override
-    public void tick() {
-        super.tick();
-        // Keep track of age
-        if (!this.level().isClientSide) {
-            // For children, align with growing age in case they have been fed
-            if (this.age < 0) {
-                this.trueAge = this.age;
-            } else {
-                this.trueAge = Math.max(0, Math.max(trueAge, trueAge + 1));
-            }
-            // Allow imprecision
-
-            @Override
-            protected void randomizeAttributes (RandomSource rand){
-                // Set stats for vanilla-like breeding
-                if (!PhantomEQCommonConfig.GENETICS.useGeneticStats.get()) {
-                    float maxHealth = this.generateMaxHealth(rand::nextInt);
-                    this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double) maxHealth);
-                }
-            }
-        }
-    }
+        return child;
+    }*/
+}

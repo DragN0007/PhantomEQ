@@ -70,11 +70,10 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
     }
 
 
-    protected void randomizeAttributes() {
+    /*protected void randomizeAttributes() {
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)this.generateRandomMaxHealth());
-//        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(this.generateRandomSpeed());
         this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(this.generateRandomJumpStrength());
-    }
+    }*/
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -228,7 +227,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putInt("Variant", getVariant());
         this.setEating(compoundNBT.getBoolean("EatingHaystack"));
-        this.setBred(compoundNBT.getBoolean("Bred"));
+        this.setBred(compoundNBT.getBoolean("Breed"));
         this.setTemper(compoundNBT.getInt("Temper"));
         this.setTamed(compoundNBT.getBoolean("Tame"));
         UUID uuid;
@@ -275,9 +274,9 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
             return this.canBeParent() && ((WarmbloodHorseEntity)animal).canBeParent();
         }
     }
-    @Nullable
+   /* @Nullable
     public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        WarmBloodFoalEntity foal;
+        WarmbloodHorseEntity foal;
         if (ageableMob instanceof Donkey) {
             foal = EntityTypes.WARMBLOOD_FOAL.get().create(serverLevel);
         } else {
@@ -295,7 +294,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
         }
         this.setOffspringAttributes(ageableMob, foal);
         return foal;
-    }
+    }*/
 
     @Override
     protected void defineSynchedData(){

@@ -58,7 +58,7 @@ public class ModEntities {
     }
 
     @SubscribeEvent
-    private static void registerAttributes(EntityAttributeCreationEvent event) {
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(QUARTER_HORSE.get(), AbstractHorse.createBaseHorseAttributes().build());
         event.put(WARMBLOOD_HORSE.get(), AbstractHorse.createBaseHorseAttributes().build());
     }

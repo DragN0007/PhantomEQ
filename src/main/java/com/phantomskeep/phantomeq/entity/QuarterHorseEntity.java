@@ -1,6 +1,9 @@
 package com.phantomskeep.phantomeq.entity;
 
+import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
+import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -8,9 +11,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.levelgen.RandomSource;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -77,7 +82,7 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
     }
 
     // Check to make sure horse is same breed before breeding
-    @Override
+/*    @Override
     public AbstractPhantHorse getChild(ServerLevel world, AgeableMob ageable) {
         if (ageable instanceof AbstractPhantHorse) {
             AbstractPhantHorse foal = null;
@@ -88,7 +93,7 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
         }
         return null;
     }
-
+*/
 
     public Species getSpecies() {
         return Species.QUARTER_HORSE;
@@ -100,7 +105,7 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
             return this.foalPredicate(event);
         } else {
             if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("slow_walk", ILoopType.EDefaultLoopTypes.LOOP));
             } else
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
 
@@ -111,11 +116,24 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
     public <E extends IAnimatable> PlayState foalPredicate(AnimationEvent<E> event) {
         QuarterHorseEntity quarterHorse = (QuarterHorseEntity) event.getAnimatable();
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("slow_walk", ILoopType.EDefaultLoopTypes.LOOP));
         } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("idle"));
         }
+        return PlayState.CONTINUE;
     }
+
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
+        AbstractPhantHorse foal = ModEntities.QUARTER_HORSE.get().create(level);
+        if (foal == null) {
+            PhantomEQ.LOGGER.error("Uh oh - A foal could not be spawned, something went wrong.");
+            return null;
+        }
+        PhantomEQ.LOGGER.debug("A BABY IS BORN!");
+        return foal;
+    }
+
 
     //Controls animations
     @Override

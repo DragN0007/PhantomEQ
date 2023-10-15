@@ -47,7 +47,7 @@ public class ModItems {
     public static final CreativeModeTab DECOR = new CreativeModeTab("DECOR") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModBlocks.WATER_TROUGH.get());
+            return new ItemStack(ModItems.REGULAR_FEED.get());
         }
     };
 }

@@ -40,4 +40,3 @@ public interface IGeneticEntity<T extends Enum<T>> {
         float getMotherSize();
         void setMotherSize(float size);
     }
-}

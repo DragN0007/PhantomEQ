@@ -1,10 +1,7 @@
 package com.phantomskeep.phantomeq.entity.util;
 
 import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
-import com.phantomskeep.phantomeq.entity.QuarterHorseFoalEntity;
 import com.phantomskeep.phantomeq.entity.WarmbloodHorseEntity;
-import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
-import com.phantomskeep.phantomeq.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -24,11 +21,11 @@ public class EntityTypes {
                     .sized(1.5f,2.2f)
                     .build(new ResourceLocation(MODID,"warmblood").toString()));
 
-    public static final RegistryObject<EntityType<WarmBloodFoalEntity>> WARMBLOOD_FOAL =
+    /*public static final RegistryObject<EntityType<WarmBloodFoalEntity>> WARMBLOOD_FOAL =
             ENTITY_TYPES.register("warmblood_foal",
             () -> EntityType.Builder.of(WarmBloodFoalEntity::new, MobCategory.CREATURE)
                     .sized(1f,1f)
-                    .build(new ResourceLocation(MODID,"warmblood_foal").toString()));
+                    .build(new ResourceLocation(MODID,"warmblood_foal").toString()));*/
 
 
     public static final RegistryObject<EntityType<QuarterHorseEntity>> QUARTERHORSE =
@@ -37,11 +34,11 @@ public class EntityTypes {
                     .sized(1.5f,2f)
                     .build(new ResourceLocation(MODID,"quarterhorse").toString()));
 
-    public static final RegistryObject<EntityType<QuarterHorseFoalEntity>> QUARTERHORSE_FOAL =
+   /* public static final RegistryObject<EntityType<QuarterHorseFoalEntity>> QUARTERHORSE_FOAL =
             ENTITY_TYPES.register("quarterhorse_foal",
             () -> EntityType.Builder.of(QuarterHorseFoalEntity::new, MobCategory.CREATURE)
                     .sized(1f,1f)
-                    .build(new ResourceLocation(MODID,"quarterhorse_foal").toString()));
+                    .build(new ResourceLocation(MODID,"quarterhorse_foal").toString()));*/
 
 
 }

@@ -4,6 +4,7 @@ import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
+import com.phantomskeep.phantomeq.item.ModItemGroup;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -101,7 +102,7 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerFoodBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+        ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(ModItemGroup.FOOD)));
     }
 
