@@ -5,7 +5,7 @@ import com.phantomskeep.phantomeq.entity.WarmbloodHorseEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class WarmbloodModel extends AnimatedGeoModel<WarmbloodHorseEntity> {
+public class WarmbloodHorseModel extends AnimatedGeoModel<WarmbloodHorseEntity> {
 
     public enum Variant {
         A (new ResourceLocation(PhantomEQ.MODID, "textures/entities/henry.png")),

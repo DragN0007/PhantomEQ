@@ -4,7 +4,7 @@ package com.phantomskeep.phantomeq.entity;
 import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.item.ModItems;
 import com.phantomskeep.phantomeq.render.QuarterHorseRender;
-import com.phantomskeep.phantomeq.render.WarmBloodRender;
+import com.phantomskeep.phantomeq.render.WarmBloodHorseRender;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.Mob;
@@ -25,7 +25,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.minecraft.world.item.CreativeModeTab;
 
 
 @Mod.EventBusSubscriber(modid = PhantomEQ.MODID, bus = Bus.MOD)
@@ -72,7 +71,7 @@ public class ModEntities {
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event)
     {
         event.registerEntityRenderer(QUARTER_HORSE.get(), QuarterHorseRender::new);
-        event.registerEntityRenderer(WARMBLOOD_HORSE.get(), WarmBloodRender::new);
+        event.registerEntityRenderer(WARMBLOOD_HORSE.get(), WarmBloodHorseRender::new);
     }
 
     //to be used for coat textures in future??

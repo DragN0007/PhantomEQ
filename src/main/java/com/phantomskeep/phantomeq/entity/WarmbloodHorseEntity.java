@@ -2,16 +2,13 @@ package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.entity.ai.HorseEatGrassGoal;
 import com.phantomskeep.phantomeq.entity.ai.HorseEatHayGoal;
-import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import com.phantomskeep.phantomeq.item.ModItems;
-import com.phantomskeep.phantomeq.model.WarmbloodModel;
-import net.minecraft.Util;
+import com.phantomskeep.phantomeq.model.WarmbloodHorseModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -27,7 +24,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
-import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -199,7 +195,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
     //Generates variant textures
 
     public ResourceLocation getTextureLocation() {
-        return WarmbloodModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
+        return WarmbloodHorseModel.Variant.variantFromOrdinal(getVariant()).resourceLocation;
     }
 
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(WarmbloodHorseEntity.class, EntityDataSerializers.INT);
@@ -257,7 +253,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
 
-        setVariant(new Random().nextInt(WarmbloodModel.Variant.values().length));
+        setVariant(new Random().nextInt(WarmbloodHorseModel.Variant.values().length));
 
         return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
