@@ -91,8 +91,8 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItemGroup.DECOR)));
+        ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
+                new Item.Properties().tab(ModItems.DECOR)));
     }
 
 
@@ -102,7 +102,7 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerFoodBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+        ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(ModItemGroup.FOOD)));
     }
 

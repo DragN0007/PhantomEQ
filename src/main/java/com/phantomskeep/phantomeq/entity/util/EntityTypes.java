@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.entity.util;
 
-import com.phantomskeep.phantomeq.entity.*;
+import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
+import com.phantomskeep.phantomeq.entity.WarmbloodHorseEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -14,17 +15,17 @@ public class EntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
 
-    public static final RegistryObject<EntityType<WarmBloodEntity>> WARMBLOOD =
+    public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD =
             ENTITY_TYPES.register("warmblood",
-            () -> EntityType.Builder.of(WarmBloodEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(WarmbloodHorseEntity::new, MobCategory.CREATURE)
                     .sized(1.5f,2.2f)
                     .build(new ResourceLocation(MODID,"warmblood").toString()));
 
-    public static final RegistryObject<EntityType<WarmBloodFoalEntity>> WARMBLOOD_FOAL =
+    /*public static final RegistryObject<EntityType<WarmBloodFoalEntity>> WARMBLOOD_FOAL =
             ENTITY_TYPES.register("warmblood_foal",
             () -> EntityType.Builder.of(WarmBloodFoalEntity::new, MobCategory.CREATURE)
                     .sized(1f,1f)
-                    .build(new ResourceLocation(MODID,"warmblood_foal").toString()));
+                    .build(new ResourceLocation(MODID,"warmblood_foal").toString()));*/
 
 
     public static final RegistryObject<EntityType<QuarterHorseEntity>> QUARTERHORSE =
@@ -33,13 +34,11 @@ public class EntityTypes {
                     .sized(1.5f,2f)
                     .build(new ResourceLocation(MODID,"quarterhorse").toString()));
 
-    public static final RegistryObject<EntityType<QuarterHorseFoalEntity>> QUARTERHORSE_FOAL =
+   /* public static final RegistryObject<EntityType<QuarterHorseFoalEntity>> QUARTERHORSE_FOAL =
             ENTITY_TYPES.register("quarterhorse_foal",
             () -> EntityType.Builder.of(QuarterHorseFoalEntity::new, MobCategory.CREATURE)
                     .sized(1f,1f)
-                    .build(new ResourceLocation(MODID,"quarterhorse_foal").toString()));
-
-
+                    .build(new ResourceLocation(MODID,"quarterhorse_foal").toString()));*/
 
 
 }
