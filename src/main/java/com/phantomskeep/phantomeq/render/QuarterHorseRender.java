@@ -1,14 +1,12 @@
 package com.phantomskeep.phantomeq.render;
 
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
 import com.phantomskeep.phantomeq.model.QuarterHorseModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.HorseArmorItem;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import java.util.Map;

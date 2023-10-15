@@ -23,13 +23,13 @@ public class QuarterHorseModel extends AnimatedGeoModel<QuarterHorseEntity> {
     }
 
     public static final ResourceLocation model = new ResourceLocation(PhantomEQ.MODID, "geo/warmblood.geo.json");
-    public static final ResourceLocation animation = new ResourceLocation(PhantomEQ.MODID, "animations/warmblood.animation.json");
+    public static final ResourceLocation animation = new ResourceLocation(PhantomEQ.MODID, "animations/warmblood.animation.json") : new ResourceLocation(PhantomEQ.MODID, "animations/foal.animation.json");
 
 
 
     @Override
-    public ResourceLocation getModelLocation(QuarterHorseEntity object) {
-        return model;
+    public ResourceLocation getModelLocation(QuarterHorseEntity quarterHorseEntity) {
+        return quarterHorseEntity.isBaby ? new ResourceLocation();
     }
 
     @Override
