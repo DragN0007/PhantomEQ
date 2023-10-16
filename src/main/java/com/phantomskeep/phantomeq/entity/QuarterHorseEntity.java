@@ -12,6 +12,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
@@ -26,6 +28,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
+import com.phantomskeep.phantomeq.entity.util.Util;
 
 import javax.annotation.Nullable;
 
@@ -80,24 +83,46 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
         super.getAngrySound();
         return SoundEvents.HORSE_ANGRY;
     }
-
-    // Check to make sure horse is same breed before breeding
-/*    @Override
-    public AbstractPhantHorse getChild(ServerLevel world, AgeableMob ageable) {
-        if (ageable instanceof AbstractPhantHorse) {
-            AbstractPhantHorse foal = null;
-            if (ageable instanceof QuarterHorseEntity) {
-                foal = ModEntities.QUARTER_HORSE.get().create(this.level);
-            }
-            return foal;
-        }
-        return null;
-    }
-*/
-
     public Species getSpecies() {
         return Species.QUARTER_HORSE;
     }
+
+    @Override
+    public boolean canMate(Animal otherAnimal)
+    {
+        if (otherAnimal == this)
+        {
+            return false;
+        }
+        if (otherAnimal instanceof AbstractPhantHorse) {
+            if (!this.isOppositeGender((AbstractPhantHorse) otherAnimal)) {
+                return false;
+            }
+        }
+        if (otherAnimal instanceof QuarterHorseEntity)
+
+        {
+            return this.canParent() && Util.horseCanMate((AbstractHorse)otherAnimal);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // Helper function for createChild that creates and spawns an entity of the
+    // correct species
+    @Override
+    public AbstractHorse getChild(ServerLevel world, AgeableMob ageable) {
+        if (ageable instanceof AbstractPhantHorse) {
+            AbstractPhantHorse foal;
+            foal = ModEntities.QUARTER_HORSE.get().create(level);
+            return foal;
+        } else {
+            return null;
+        }
+    }
+
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         QuarterHorseEntity quarterHorse = (QuarterHorseEntity) event.getAnimatable();
@@ -121,17 +146,6 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
             event.getController().setAnimation(new AnimationBuilder().addAnimation("idle"));
         }
         return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
-        AbstractPhantHorse foal = ModEntities.QUARTER_HORSE.get().create(level);
-        if (foal == null) {
-            PhantomEQ.LOGGER.error("Uh oh - A foal could not be spawned, something went wrong.");
-            return null;
-        }
-        PhantomEQ.LOGGER.debug("A BABY IS BORN!");
-        return foal;
     }
 
 

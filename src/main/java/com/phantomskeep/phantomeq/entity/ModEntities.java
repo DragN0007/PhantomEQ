@@ -35,7 +35,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<QuarterHorseEntity>> QUARTER_HORSE
             = registerEntity("quarter_horse", QuarterHorseEntity::new, 1.2F, 1.6F);
     public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD_HORSE
-            = registerEntity("warmblood_horse", WarmbloodHorseEntity::new, 1.2F, 1.6F);
+            = registerEntity("warmblood_horse", WarmbloodHorseEntity::new, 1.2F, 1.8F);
 
     public static RegistryObject<Item> QUARTER_HORSE_SPAWN_EGG
             = registerSpawnEgg("quarter_horse_spawn_egg", QUARTER_HORSE, 0x8B6C4C, 0x8B6C4C);
