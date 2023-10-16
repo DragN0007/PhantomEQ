@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
+import com.phantomskeep.phantomeq.entity.genetics.Breed;
 import com.phantomskeep.phantomeq.entity.genetics.IGeneticEntity;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,21 +12,23 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WoolCarpetBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import org.jetbrains.annotations.NotNull;
@@ -33,20 +36,24 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-public abstract class AbstractPhantHorse extends AbstractHorse {
+public abstract class AbstractPhantHorse extends AbstractChestedHorse {
 
     protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> GENDER = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> PREGNANT_SINCE = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<String> OWNED_BY = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Optional<UUID>> DATA_ID_OWNER_UUID = SynchedEntityData.defineId(AbstractPhantHorse.class, EntityDataSerializers.OPTIONAL_UUID);
     protected int trueAge;
 
     protected List<AbstractPhantHorse> unbornChildren = new ArrayList<>();
 
 
-    public AbstractPhantHorse(EntityType<? extends AbstractHorse> entityType, Level level) {
+    public AbstractPhantHorse(EntityType<? extends AbstractChestedHorse> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -77,15 +84,13 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         this.entityData.define(FERTILE, true);
         this.entityData.define(PREGNANT_SINCE, -1);
         this.entityData.define(OWNED_BY, "");
+        this.entityData.define(DATA_ID_FLAGS, (byte)0);
+        this.entityData.define(DATA_ID_OWNER_UUID, Optional.empty());
     }
 
+
     //Ownership Stuff Here
-    public String getOwnedBy() {
-        return (String)this.entityData.get(OWNED_BY);
-    }
-    public void setOwnedBy(String ownedBy) {
-        this.entityData.set(OWNED_BY, ownedBy);
-    }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -178,25 +183,198 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         }
 
     }
-
-
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
     }
 
-    //Interactions
+        /** Inventory Handling */
+        public ItemStack getArmor() {
+            return this.getItemBySlot(EquipmentSlot.CHEST);
+        }
 
-    /*  @Override
+    private void setArmor(ItemStack itemstack) {
+        this.setItemSlot(EquipmentSlot.CHEST, itemstack);
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+    }
+
+
+    @Override
+    protected void updateContainerEquipment() {
+        if (!this.level.isClientSide()) {
+            super.updateContainerEquipment();
+            this.setArmorStack(this.inventory.getItem(1));
+            this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+        }
+    }
+
+    /* not in use yet */
+    private void setArmorStack(ItemStack itemstack) {
+        // this.func_213805_k(itemStack);
+        this.setArmor(itemstack);
+
+            }
+
+    @Override
+    public boolean canWearArmor() {
+        return true;
+    }
+
+    @Override
+    public boolean isArmor(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem
+                && ((BlockItem)stack.getItem()).getBlock() instanceof WoolCarpetBlock) {
+            return true;
+        }
+        if (stack.getItem() instanceof HorseArmorItem) {
+            HorseArmorItem armor = (HorseArmorItem)(stack.getItem());
+            return armor.getProtection() == 0;
+        }
+        return false;
+    }
+
+    public void containerChanged(Container invBasic) {
+        ItemStack itemstack = this.getArmor();
+        super.containerChanged(invBasic);
+        ItemStack itemstack1 = this.getArmor();
+        if (this.tickCount > 20 && this.isArmor(itemstack1) && itemstack != itemstack1) {
+            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
+        }
+    }
+
+    public SimpleContainer getHorseChest() {
+        return this.inventory;
+    }
+
+    /** Taming */
+    public boolean isTamed() {
+        return this.getFlag(2);
+    }
+
+    @Nullable
+    public UUID getOwnerUUID() {
+        return this.entityData.get(DATA_ID_OWNER_UUID).orElse((UUID)null);
+    }
+
+    public void setOwnerUUID(@Nullable UUID p_30587_) {
+        this.entityData.set(DATA_ID_OWNER_UUID, Optional.ofNullable(p_30587_));
+    }
+    public void setTamed(boolean p_30652_) {
+        this.setFlag(2, p_30652_);
+    }
+
+    protected boolean getFlag(int p_30648_) {
+        return (this.entityData.get(DATA_ID_FLAGS) & p_30648_) != 0;
+    }
+
+    protected void setFlag(int p_30598_, boolean p_30599_) {
+        byte b0 = this.entityData.get(DATA_ID_FLAGS);
+        if (p_30599_) {
+            this.entityData.set(DATA_ID_FLAGS, (byte)(b0 | p_30598_));
+        } else {
+            this.entityData.set(DATA_ID_FLAGS, (byte)(b0 & ~p_30598_));
+        }
+
+    }
+
+
+    /** Interactions */
+
+    private boolean itemInteract(Player player, ItemStack itemstack, InteractionHand hand) {
+
+        // Only allow taming with an empty hand
+        if (!this.isTamed()) {
+            this.makeMad();
+            return true;
+        }
+
+        // If tame, equip saddle
+        if (!this.isSaddled() && isSaddle(itemstack) && this.isSaddleable()) {
+            if (!this.level.isClientSide) {
+                ItemStack saddle = itemstack.split(1);
+                this.inventory.setItem(0, saddle);
+            }
+            return true;
+        }
+        // If tame, equip armor
+        if (this.isArmor(itemstack)) {
+            if (this.inventory.getItem(1).isEmpty()) {
+                if (!this.level.isClientSide) {
+                    ItemStack armor = itemstack.split(1);
+                    this.inventory.setItem(1, armor);
+                }
+            }
+            else {
+                this.openInventory(player);
+            }
+            return true;
+        }
+        // Nothing left
+        return false;
+    }
+
+    public boolean isSaddle(ItemStack stack) {
+        return stack.isEmpty() || stack.is(Items.SADDLE);
+    }
+    // Override to allow alternate saddles to be equipped
+    @Override
+    public SlotAccess getSlot(int slot) {
+        int num = slot - 400;
+        if (num == 0) {
+            return new SlotAccess() {
+                public ItemStack get() {
+                    return AbstractPhantHorse.this.inventory.getItem(slot);
+                }
+
+                public boolean set(ItemStack stack) {
+                    if (!isSaddle(stack)) {
+                        return false;
+                    } else {
+                        AbstractPhantHorse.this.inventory.setItem(slot, stack);
+                        AbstractPhantHorse.this.updateContainerEquipment();
+                        return true;
+                    }
+                }
+            };
+        }
+        return super.getSlot(slot);
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+        ItemStack itemstack = player.getItemInHand(hand);
         if (!this.isBaby()) {
             if (this.isTamed() && player.isSecondaryUseActive()) {
                 this.openInventory(player);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
         }
-    } */
+
+        // Only interact items with horses that aren't being ridden by another player
+        if (!itemstack.isEmpty() && !this.isVehicle()) {
+            // Try to eat it
+            if (this.isFood(itemstack)) {
+                // Eat the item
+                return this.fedFood(player, itemstack);
+            }
+            // See if the item interacts with us
+            InteractionResult actionresulttype = itemstack.interactLivingEntity(player, this, hand);
+            if (actionresulttype.consumesAction()) {
+                return actionresulttype;
+            }
+            // See if we interact with the item
+            if (itemInteract(player, itemstack, hand)) {
+                return InteractionResult.sidedSuccess(this.level.isClientSide);
+            }
+        }
+
+        if (!this.isBaby()) {
+            this.doPlayerRide(player);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+        }
+        // else
+        return super.mobInteract(player, hand);
+    }
 
 
     //Pregnancy, Gender, Etc.
@@ -268,7 +446,7 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         return PhantomEQCommonConfig.getHorseBirthAge();
     }
 
-    public int getRebreedTicks() {
+        public int getRebreedTicks() {
         return PhantomEQCommonConfig.getHorseRebreedTicks(this.isMale());
     }
 
@@ -453,7 +631,6 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         }
         super.aiStep();
     }
-
     public SpawnGroupData finalizeSpawn (@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance
         instance, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag){
             return super.finalizeSpawn(levelAccessor, instance, spawnType, groupData, tag);

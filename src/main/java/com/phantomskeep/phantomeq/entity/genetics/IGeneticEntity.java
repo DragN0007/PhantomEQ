@@ -7,8 +7,6 @@ public interface IGeneticEntity<T extends Enum<T>> {
 
     //Borrowed from RHG
 
-        RandomSource getRand();
-
         boolean isMale();
         void setMale(boolean gender);
 
