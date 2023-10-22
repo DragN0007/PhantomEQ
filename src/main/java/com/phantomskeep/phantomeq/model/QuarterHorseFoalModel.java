@@ -1,9 +1,7 @@
 package com.phantomskeep.phantomeq.model;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
 import com.phantomskeep.phantomeq.entity.QuarterHorseFoalEntity;
-import com.phantomskeep.phantomeq.entity.WarmBloodFoalEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

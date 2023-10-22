@@ -52,6 +52,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 
 
+        event.put(EntityTypes.TRUCK.get(), TruckEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -62,7 +63,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
         EntityRenderers.register(EntityTypes.QUARTERHORSE.get(), QuarterHorseRender::new);
         EntityRenderers.register(EntityTypes.QUARTERHORSE_FOAL.get(), QuarterHorseFoalRender::new);
 
-
+        EntityRenderers.register(EntityTypes.TRUCK.get(), TruckRender::new);
 
     }
 }

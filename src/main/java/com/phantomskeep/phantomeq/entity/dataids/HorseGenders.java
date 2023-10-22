@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.entity.dataids;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public enum HorseGenders {
     MARE(1, true),

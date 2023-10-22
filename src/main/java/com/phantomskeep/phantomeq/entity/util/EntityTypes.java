@@ -40,7 +40,11 @@ public class EntityTypes {
                     .build(new ResourceLocation(MODID,"quarterhorse_foal").toString()));
 
 
-
+    public static final RegistryObject<EntityType<TruckEntity>> TRUCK =
+            ENTITY_TYPES.register("truck",
+                    () -> EntityType.Builder.of(TruckEntity::new, MobCategory.CREATURE)
+                            .sized(4f,3f)
+                            .build(new ResourceLocation(MODID,"truck").toString()));
 
 }
 

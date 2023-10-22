@@ -7,7 +7,6 @@ import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
