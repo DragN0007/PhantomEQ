@@ -34,8 +34,10 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.Animation;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -53,6 +55,17 @@ import java.util.function.Predicate;
 public class WarmbloodHorseEntity extends AbstractPhantHorse implements IAnimatable {
 
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
+    private int animTimer = 0;
+    private int idleAnimCooldown = 0;
+    @Override
+    public void tick() {
+        if (this.level.isClientSide) {
+            animTimer = Math.max(animTimer - 1, 0);
+            idleAnimCooldown = Math.max(idleAnimCooldown - 1, 0);
+        }
+        super.tick();
+    }
 
     private static final ResourceLocation LOOT_TABLE = new ResourceLocation("minecraft", "entities/horse");
 
@@ -147,18 +160,45 @@ public class WarmbloodHorseEntity extends AbstractPhantHorse implements IAnimata
         WarmbloodHorseEntity warmbloodHorse = (WarmbloodHorseEntity) event.getAnimatable();
         if (warmbloodHorse.isBaby()) {
             return this.foalPredicate(event);
+            // Check to see if horse is baby - if it is, refer to baby animation rules instead
         } else {
-            if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("slow_walk", ILoopType.EDefaultLoopTypes.LOOP));
-            } else
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
-
+            Animation anim = event.getController().getCurrentAnimation();
+            if (anim != null && event.getController().getAnimationState() != AnimationState.Stopped) {
+                return PlayState.CONTINUE;
+                // This theoretically prevents animations from just "stopping" randomly
+            } else if (event.isMoving()) {
+                event.getController().setAnimation((new AnimationBuilder()).loop("slow_walk"));
+                // This one should make sense to you
+            } else if (!event.isMoving()) {
+                float chance = (new Random()).nextFloat();
+                if (!(chance < 0.9F) && this.idleAnimCooldown < 1) {
+                    // Double check that we're within the values an idle can trigger on
+                    if (chance > 0.9F && chance < 0.92F) {
+                        // Set the range that this idle can trigger within
+                        event.getController().setAnimation((new AnimationBuilder()).playOnce("example_idle_1").playOnce("standing_idle"));
+                        // Play the animation, then play the stand idle once to minimize stuttering between transitions
+                        this.animTimer = 69; // This should be equal to the length of the idle animation in seconds
+                        // Setting a timer and then checking for it prevents other unwanted animations from triggering overtop
+                        this.idleAnimCooldown = this.animTimer + 100; // This prevents idles from playing back to back, by forcing a 100 sec buffer.
+                        event.getController().markNeedsReload();
+                    } else {
+                        event.getController().setAnimation((new AnimationBuilder()).playOnce("example_idle_2").playOnce("standing_idle"));
+                        this.animTimer = 420;
+                        this.idleAnimCooldown = this.animTimer + 100;
+                        event.getController().markNeedsReload();
+                    }
+                } else {
+                    event.getController().setAnimation((new AnimationBuilder()).playOnce("standing_idle"));
+                    this.animTimer = 1001; // Make sure the standing idle loop finishes once it's been started, so it can't be interrupted
+                    // Because this is the last animation we're providing, the horse will default to it when nothing else is happening.
+                    event.getController().markNeedsReload();
+                }
+            }
             return PlayState.CONTINUE;
         }
     }
 
     public <E extends IAnimatable> PlayState foalPredicate(AnimationEvent<E> event) {
-        WarmbloodHorseEntity warmbloodHorse = (WarmbloodHorseEntity) event.getAnimatable();
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("slow_walk", ILoopType.EDefaultLoopTypes.LOOP));
         } else {
