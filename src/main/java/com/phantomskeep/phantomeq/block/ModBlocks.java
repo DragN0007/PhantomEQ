@@ -4,17 +4,14 @@ import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
-import com.phantomskeep.phantomeq.item.ModItemGroup;
 import com.phantomskeep.phantomeq.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HayBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -95,7 +92,6 @@ public class ModBlocks {
                 new Item.Properties().tab(ModItems.DECOR)));
     }
 
-
     private static <T extends Block>RegistryObject<T> registerFoodBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerFoodBlockItem(name, toReturn);
@@ -103,7 +99,7 @@ public class ModBlocks {
     }
     private static <T extends Block> void registerFoodBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItemGroup.FOOD)));
+                new Item.Properties().tab(ModItems.FOOD)));
     }
 
 
