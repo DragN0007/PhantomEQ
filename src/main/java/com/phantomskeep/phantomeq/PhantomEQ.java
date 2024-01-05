@@ -1,10 +1,10 @@
 package com.phantomskeep.phantomeq;
 
 import com.mojang.logging.LogUtils;
-import com.phantomskeep.phantomeq.block.ModBlocks;
+import com.phantomskeep.phantomeq.block.PEQBlocks;
 import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
-import com.phantomskeep.phantomeq.entity.ModEntities;
-import com.phantomskeep.phantomeq.item.ModItems;
+import com.phantomskeep.phantomeq.entity.PEQEntities;
+import com.phantomskeep.phantomeq.item.PEQItems;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
@@ -49,13 +49,13 @@ public class PhantomEQ {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(ModEntities::registerSpawnPlacements);
+        event.enqueueWork(PEQEntities::registerSpawnPlacements);
     }
 
     public static void registerDeferredRegistries(IEventBus modBus) {
-        ModEntities.ENTITY_DEFERRED.register(modBus);
-        ModItems.ITEM_DEFERRED.register(modBus);
-        ModBlocks.register(modBus);
+        PEQEntities.ENTITY_DEFERRED.register(modBus);
+        PEQItems.ITEM_DEFERRED.register(modBus);
+        PEQBlocks.register(modBus);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

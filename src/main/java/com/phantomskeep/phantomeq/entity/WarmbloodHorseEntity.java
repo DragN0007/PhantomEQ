@@ -2,16 +2,13 @@ package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.entity.ai.HorseEatGrassGoal;
 import com.phantomskeep.phantomeq.entity.ai.HorseEatHayGoal;
-import com.phantomskeep.phantomeq.entity.util.EntityTypes;
-import com.phantomskeep.phantomeq.item.ModItems;
+import com.phantomskeep.phantomeq.item.PEQItems;
 import com.phantomskeep.phantomeq.model.WarmbloodModel;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -27,7 +24,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.horse.Donkey;
-import net.minecraft.world.entity.animal.horse.Variant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -244,7 +240,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
 
         if (compoundNBT.contains("PEQSaddleItem", 10)) {
             ItemStack itemstack = ItemStack.of(compoundNBT.getCompound("PEQSaddleItem"));
-            if (itemstack.is(ModItems.PEQ_SADDLE.get())) {
+            if (itemstack.is(PEQItems.PEQ_SADDLE.get())) {
                 this.inventory.setItem(0, itemstack);
             }
         }
@@ -322,7 +318,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
     //Saddleable
     @Override
     public void equipSaddle(@Nullable SoundSource p_30546_) {
-        this.inventory.setItem(0, new ItemStack(ModItems.PEQ_SADDLE.get()));
+        this.inventory.setItem(0, new ItemStack(PEQItems.PEQ_SADDLE.get()));
         if (p_30546_ != null) {
             this.level.playSound((Player)null, this, SoundEvents.HORSE_SADDLE, p_30546_, 0.5F, 1.0F);
         }
@@ -334,7 +330,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
         int i = p_149514_ - 400;
         if (i >= 0 && i < 2 && i < this.inventory.getContainerSize()) {
             if (i == 0) {
-                return this.createEquipmentSlotAccess(i, (p_149518_) -> p_149518_.isEmpty() || p_149518_.is(ModItems.PEQ_SADDLE.get()));
+                return this.createEquipmentSlotAccess(i, (p_149518_) -> p_149518_.isEmpty() || p_149518_.is(PEQItems.PEQ_SADDLE.get()));
             }
 
             if (i == 1) {
@@ -377,7 +373,7 @@ public class WarmbloodHorseEntity extends AbstractHorse implements IAnimatable {
                 return InteractionResult.sidedSuccess(this.level.isClientSide);
             }
 
-            boolean flag = !this.isBaby() && !this.isSaddled() && itemstack.is(ModItems.PEQ_SADDLE.get());
+            boolean flag = !this.isBaby() && !this.isSaddled() && itemstack.is(PEQItems.PEQ_SADDLE.get());
             if (this.isArmor(itemstack) || flag) {
                 this.openInventory(player);
                 return InteractionResult.sidedSuccess(this.level.isClientSide);

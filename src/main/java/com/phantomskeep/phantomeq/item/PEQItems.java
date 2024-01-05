@@ -11,23 +11,23 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 
-public class ModItems {
+public class PEQItems {
     public static final DeferredRegister<Item> ITEM_DEFERRED =
             DeferredRegister.create(ForgeRegistries.ITEMS, PhantomEQ.MODID);
 
     //SADDLES & TACK
     public static final RegistryObject<Item> PEQ_SADDLE = ITEM_DEFERRED.register("peq_saddle",
-            () -> new PEQSaddleItem(new Item.Properties().stacksTo(1).tab(ModItems.PEQ)));
+            () -> new PEQSaddleItem(new Item.Properties().stacksTo(1).tab(PEQItems.PEQ)));
 
     //HORSE ITEMS
     public static final RegistryObject<Item> ORGANIC_FEED = ITEM_DEFERRED.register("organic_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItems.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
     public static final RegistryObject<Item> REGULAR_FEED = ITEM_DEFERRED.register("regular_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItems.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
     public static final RegistryObject<Item> SPORT_FEED = ITEM_DEFERRED.register("sport_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItems.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
     public static final RegistryObject<Item> MIXED_FEED = ITEM_DEFERRED.register("mixed_feed",
-            () -> new Item(new Item.Properties().stacksTo(64).tab(ModItems.PEQ)));
+            () -> new Item(new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
 
 
 
@@ -43,19 +43,19 @@ public class ModItems {
     public static final CreativeModeTab PEQ = new CreativeModeTab("PEQ") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModItems.MODTAB_1.get());
+            return new ItemStack(PEQItems.MODTAB_1.get());
         }
     };
 
     public static final CreativeModeTab DECOR = new CreativeModeTab("DECOR") {
         @Override
         public @NotNull ItemStack makeIcon() {
-            return new ItemStack(ModItems.MODTAB_2.get());
+            return new ItemStack(PEQItems.MODTAB_2.get());
         }
     };
 
     public static final CreativeModeTab FOOD = new CreativeModeTab("FOOD") {
         @Override
-        public ItemStack makeIcon() { return new ItemStack(ModItems.MODTAB_3.get()); }
+        public ItemStack makeIcon() { return new ItemStack(PEQItems.MODTAB_3.get()); }
     };
 }

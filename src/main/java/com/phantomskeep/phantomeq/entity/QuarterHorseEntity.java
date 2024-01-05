@@ -1,9 +1,7 @@
 package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
-import com.phantomskeep.phantomeq.entity.util.EntityTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -11,11 +9,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.levelgen.RandomSource;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -125,7 +121,7 @@ public class QuarterHorseEntity extends AbstractPhantHorse implements IAnimatabl
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
-        AbstractPhantHorse foal = ModEntities.QUARTER_HORSE.get().create(level);
+        AbstractPhantHorse foal = PEQEntities.QUARTER_HORSE.get().create(level);
         if (foal == null) {
             PhantomEQ.LOGGER.error("Uh oh - A foal could not be spawned, something went wrong.");
             return null;

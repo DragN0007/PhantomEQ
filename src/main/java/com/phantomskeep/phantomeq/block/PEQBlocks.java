@@ -4,7 +4,7 @@ import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
-import com.phantomskeep.phantomeq.item.ModItems;
+import com.phantomskeep.phantomeq.item.PEQItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
-public class ModBlocks {
+public class PEQBlocks {
     public static final DeferredRegister<Block> BLOCKS
             = DeferredRegister.create(ForgeRegistries.BLOCKS, PhantomEQ.MODID);
 
@@ -88,8 +88,8 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItems.DECOR)));
+        PEQItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
+                new Item.Properties().tab(PEQItems.DECOR)));
     }
 
     private static <T extends Block>RegistryObject<T> registerFoodBlock(String name, Supplier<T> block){
@@ -98,8 +98,8 @@ public class ModBlocks {
         return toReturn;
     }
     private static <T extends Block> void registerFoodBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(ModItems.FOOD)));
+        PEQItems.ITEM_DEFERRED.register(name, () -> new BlockItem(block.get(),
+                new Item.Properties().tab(PEQItems.FOOD)));
     }
 
 

@@ -6,7 +6,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-public class ModTags {
+public class PEQTags {
     public static class Items {
 
         private static TagKey<Item> tag (String name) {

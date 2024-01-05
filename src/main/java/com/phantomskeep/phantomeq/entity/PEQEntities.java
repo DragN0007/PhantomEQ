@@ -2,7 +2,7 @@ package com.phantomskeep.phantomeq.entity;
 
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.item.ModItems;
+import com.phantomskeep.phantomeq.item.PEQItems;
 import com.phantomskeep.phantomeq.render.QuarterHorseRender;
 import com.phantomskeep.phantomeq.render.WarmBloodRender;
 import net.minecraft.world.entity.EntityType;
@@ -25,11 +25,10 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.minecraft.world.item.CreativeModeTab;
 
 
 @Mod.EventBusSubscriber(modid = PhantomEQ.MODID, bus = Bus.MOD)
-public class ModEntities {
+public class PEQEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_DEFERRED
             = DeferredRegister.create(ForgeRegistries.ENTITIES, PhantomEQ.MODID);
 
@@ -52,7 +51,7 @@ public class ModEntities {
     }
 
     private static RegistryObject<Item> registerSpawnEgg(String name, RegistryObject<? extends EntityType<? extends Mob>> type, int primary, int secondary) {
-        return ModItems.ITEM_DEFERRED.register(name,
+        return PEQItems.ITEM_DEFERRED.register(name,
                 () -> new ForgeSpawnEggItem(type, primary, secondary, new Item.Properties())
         );
     }
