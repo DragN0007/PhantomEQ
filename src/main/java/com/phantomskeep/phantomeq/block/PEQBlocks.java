@@ -4,6 +4,8 @@ import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.block.decorvox.Bucket;
 import com.phantomskeep.phantomeq.block.decorvox.FenceFeeder;
 import com.phantomskeep.phantomeq.block.decorvox.WaterTrough;
+import com.phantomskeep.phantomeq.block.jumpvox.NarrowDoubleBarMiddle;
+import com.phantomskeep.phantomeq.block.jumpvox.NarrowDoubleBarSide;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -26,48 +28,68 @@ public class PEQBlocks {
 
 
     //DECOR
-    public static final RegistryObject<WaterTrough> WATER_TROUGH = registerBlock("water_trough",
+    public static final RegistryObject<Block> WATER_TROUGH = registerBlock("water_trough",
             () -> new WaterTrough());
-    public static final RegistryObject<Bucket> BUCKET = registerBlock("bucket",
+    public static final RegistryObject<Block> BUCKET = registerBlock("bucket",
             () -> new Bucket());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLACK = registerBlock("fence_feeder_black",
+    public static final RegistryObject<Block> FENCE_FEEDER_BLACK = registerBlock("fence_feeder_black",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BLUE = registerBlock("fence_feeder_blue",
+    public static final RegistryObject<Block> FENCE_FEEDER_BLUE = registerBlock("fence_feeder_blue",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_BROWN = registerBlock("fence_feeder_brown",
+    public static final RegistryObject<Block> FENCE_FEEDER_BROWN = registerBlock("fence_feeder_brown",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_CYAN = registerBlock("fence_feeder_cyan",
+    public static final RegistryObject<Block> FENCE_FEEDER_CYAN = registerBlock("fence_feeder_cyan",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_GRAY = registerBlock("fence_feeder_gray",
+    public static final RegistryObject<Block> FENCE_FEEDER_GRAY = registerBlock("fence_feeder_gray",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_GREEN = registerBlock("fence_feeder_green",
+    public static final RegistryObject<Block> FENCE_FEEDER_GREEN = registerBlock("fence_feeder_green",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIGHT_BLUE = registerBlock("fence_feeder_light_blue",
+    public static final RegistryObject<Block> FENCE_FEEDER_LIGHT_BLUE = registerBlock("fence_feeder_light_blue",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIGHT_GRAY = registerBlock("fence_feeder_light_gray",
+    public static final RegistryObject<Block> FENCE_FEEDER_LIGHT_GRAY = registerBlock("fence_feeder_light_gray",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_LIME = registerBlock("fence_feeder_lime",
+    public static final RegistryObject<Block> FENCE_FEEDER_LIME = registerBlock("fence_feeder_lime",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_MAGENTA = registerBlock("fence_feeder_magenta",
+    public static final RegistryObject<Block> FENCE_FEEDER_MAGENTA = registerBlock("fence_feeder_magenta",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_ORANGE = registerBlock("fence_feeder_orange",
+    public static final RegistryObject<Block> FENCE_FEEDER_ORANGE = registerBlock("fence_feeder_orange",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_PINK = registerBlock("fence_feeder_pink",
+    public static final RegistryObject<Block> FENCE_FEEDER_PINK = registerBlock("fence_feeder_pink",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_PURPLE = registerBlock("fence_feeder_purple",
+    public static final RegistryObject<Block> FENCE_FEEDER_PURPLE = registerBlock("fence_feeder_purple",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_RED = registerBlock("fence_feeder_red",
+    public static final RegistryObject<Block> FENCE_FEEDER_RED = registerBlock("fence_feeder_red",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_WHITE = registerBlock("fence_feeder_white",
+    public static final RegistryObject<Block> FENCE_FEEDER_WHITE = registerBlock("fence_feeder_white",
             () -> new FenceFeeder());
-    public static final RegistryObject<FenceFeeder> FENCE_FEEDER_YELLOW = registerBlock("fence_feeder_yellow",
+    public static final RegistryObject<Block> FENCE_FEEDER_YELLOW = registerBlock("fence_feeder_yellow",
             () -> new FenceFeeder());
-
 
     //BALES
     public static final RegistryObject<HayBlock> ALFALFA_BALE = registerFoodBlock("alfalfa_bale",
             () -> new HayBlock(Block.Properties.copy(Blocks.HAY_BLOCK)));
 
+    //JUMPS
+    public static final RegistryObject<Block> JUMP1_M = registerBlock("jump1_m",
+            () -> new NarrowDoubleBarMiddle());
+    public static final RegistryObject<Block> JUMP1_S_BLACK = registerBlock("jump1_s_black",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_BLUE = registerBlock("jump1_s_blue",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_CYAN = registerBlock("jump1_s_cyan",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_GREEN = registerBlock("jump1_s_green",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_ORANGE = registerBlock("jump1_s_orange",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_PINK = registerBlock("jump1_s_pink",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_PURPLE = registerBlock("jump1_s_purple",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_RED = registerBlock("jump1_s_red",
+            () -> new NarrowDoubleBarSide());
+    public static final RegistryObject<Block> JUMP1_S_YELLOW = registerBlock("jump1_s_yellow",
+            () -> new NarrowDoubleBarSide());
 
 
 

@@ -36,6 +36,18 @@
   "block.phantomeq.fence_feeder_white": "Hook Feeder White",
   "block.phantomeq.fence_feeder_yellow": "Hook Feeder Yellow",
 
+  "block.phantomeq.jump1_m": "Double Bar Jump Middle",
+  "block.phantomeq.jump1_s_black": "Double Bar Jump Side Black",
+  "block.phantomeq.jump1_s_blue": "Double Bar Jump Side Blue",
+  "block.phantomeq.jump1_s_cyan": "Double Bar Jump Side Cyan",
+  "block.phantomeq.jump1_s_green": "Double Bar Jump Side Green",
+  "block.phantomeq.jump1_s_orange": "Double Bar Jump Side Orange",
+  "block.phantomeq.jump1_s_pink": "Double Bar Jump Side Pink",
+  "block.phantomeq.jump1_s_purple": "Double Bar Jump Side Purple",
+  "block.phantomeq.jump1_s_red": "Double Bar Jump Side Red",
+  "block.phantomeq.jump1_s_white": "Double Bar Jump Side White",
+  "block.phantomeq.jump1_s_yellow": "Double Bar Jump Side Yellow",
+
   "itemGroup.PEQ": "Phantom Equestrian Mod",
   "itemGroup.DECOR": "PhantomEQ Decor",
   "itemGroup.FOOD": "PhantomEQ Food"

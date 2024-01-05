@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "phantomeq:block/jumps/jump1_s_black",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "phantomeq:block/jumps/jump1_s_black"
+    },
+    "facing=south": {
+      "model": "phantomeq:block/jumps/jump1_s_black",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "phantomeq:block/jumps/jump1_s_black",
+      "y": 270
+    }
+  }
+}
