@@ -40,21 +40,21 @@ public class PEQItems {
             () -> new Item(new Item.Properties()));
 
     //MODTAB
-    public static final CreativeModeTab PEQ = new CreativeModeTab("PEQ") {
+    public static final CreativeModeTab PEQ = new CreativeModeTab("peq") {
         @Override
         public @NotNull ItemStack makeIcon() {
             return new ItemStack(PEQItems.MODTAB_1.get());
         }
     };
 
-    public static final CreativeModeTab DECOR = new CreativeModeTab("DECOR") {
+    public static final CreativeModeTab DECOR = new CreativeModeTab("decor") {
         @Override
         public @NotNull ItemStack makeIcon() {
             return new ItemStack(PEQItems.MODTAB_2.get());
         }
     };
 
-    public static final CreativeModeTab FOOD = new CreativeModeTab("FOOD") {
+    public static final CreativeModeTab FOOD = new CreativeModeTab("food") {
         @Override
         public ItemStack makeIcon() { return new ItemStack(PEQItems.MODTAB_3.get()); }
     };

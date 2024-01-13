@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "phantomeq:blocks/bucket",
-		"1": "phantomeq:blocks/water",
-		"particle": "phantomeq:blocks/bucket"
+		"0": "phantomeq:block/bucket",
+		"1": "phantomeq:block/water",
+		"particle": "phantomeq:block/bucket"
 	},
 	"elements": [
 		{

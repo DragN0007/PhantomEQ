@@ -1,4 +1,8 @@
 {
+  "itemGroup.peq": "Phantom Equestrian Mod",
+  "itemGroup.decor": "PhantomEQ Decor",
+  "itemGroup.food": "PhantomEQ Food",
+
   "item.phantomeq.warmblood_spawn_egg": "Warmblood Spawn Egg",
   "entity.phantomeq.warmblood": "Warmblood Horse",
   "entity.phantomeq.warmblood_foal": "Warmblood Foal",
@@ -46,9 +50,5 @@
   "block.phantomeq.jump1_s_purple": "Double Bar Jump Side Purple",
   "block.phantomeq.jump1_s_red": "Double Bar Jump Side Red",
   "block.phantomeq.jump1_s_white": "Double Bar Jump Side White",
-  "block.phantomeq.jump1_s_yellow": "Double Bar Jump Side Yellow",
-
-  "itemGroup.PEQ": "Phantom Equestrian Mod",
-  "itemGroup.DECOR": "PhantomEQ Decor",
-  "itemGroup.FOOD": "PhantomEQ Food"
+  "block.phantomeq.jump1_s_yellow": "Double Bar Jump Side Yellow"
 }

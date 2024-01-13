@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "phantomeq:blocks/water_trough",
-		"particle": "phantomeq:blocks/water_trough"
+		"0": "phantomeq:block/water_trough",
+		"particle": "phantomeq:block/water_trough"
 	},
 	"elements": [
 		{

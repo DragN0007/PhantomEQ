@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "phantomeq:blocks/jump1_s_purple",
-		"particle": "phantomeq:blocks/jump1_s_purple"
+		"0": "phantomeq:block/jump1_s_purple",
+		"particle": "phantomeq:block/jump1_s_purple"
 	},
 	"elements": [
 		{

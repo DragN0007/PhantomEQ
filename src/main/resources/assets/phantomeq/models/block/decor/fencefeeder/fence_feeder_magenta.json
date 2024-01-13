@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"1": "phantomeq:blocks/hook_feeder_magenta",
-		"2": "phantomeq:blocks/food_fence_feeder",
-		"particle": "phantomeq:blocks/hook_feeder_magenta"
+		"1": "phantomeq:block/hook_feeder_magenta",
+		"2": "phantomeq:block/food_fence_feeder",
+		"particle": "phantomeq:block/hook_feeder_magenta"
 	},
 	"elements": [
 		{

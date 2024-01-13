@@ -1,8 +1,0 @@
-
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "phantomeq:blocks/alfalfa_top",
-    "side": "phantomeq:blocks/alfalfa_sides"
-  }
-}

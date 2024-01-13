@@ -1,14 +1,13 @@
 package com.phantomskeep.phantomeq.config;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.horse.Donkey;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.Mule;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.horse.*;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public class PhantomEQCommonConfig {
         public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
