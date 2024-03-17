@@ -22,10 +22,8 @@ import java.util.stream.Collectors;
 
 import static com.phantomskeep.phantomeq.PhantomEQ.MODID;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(MODID)
 public class PhantomEQ {
-    // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MODID = "phantomeq";
     public static PhantomEQ instance;
@@ -39,10 +37,8 @@ public class PhantomEQ {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PhantomEQCommonConfig.spec);
 
-        // GeckoLib
         GeckoLib.initialize();
 
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
         registerDeferredRegistries(FMLJavaModLoadingContext.get().getModEventBus());
@@ -59,7 +55,6 @@ public class PhantomEQ {
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        // Some phantomskeep code to dispatch IMC to another mod
         InterModComms.sendTo("phantomeq", "helloworld", () -> {
             LOGGER.info("Hello world from the MDK");
             return "Hello world";
@@ -67,7 +62,6 @@ public class PhantomEQ {
     }
 
     private void processIMC(final InterModProcessEvent event) {
-        // Some phantomskeep code to receive and process InterModComms from other mods
         LOGGER.info("Got IMC {}", event.getIMCStream().
                 map(m -> m.messageSupplier().get()).
                 collect(Collectors.toList()));
