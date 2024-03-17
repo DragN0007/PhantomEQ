@@ -1,6 +1,6 @@
 package com.phantomskeep.phantomeq.entity;
 
-import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
+import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

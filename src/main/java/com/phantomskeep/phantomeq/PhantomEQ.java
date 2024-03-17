@@ -2,7 +2,7 @@ package com.phantomskeep.phantomeq;
 
 import com.mojang.logging.LogUtils;
 import com.phantomskeep.phantomeq.block.PEQBlocks;
-import com.phantomskeep.phantomeq.config.PhantomEQCommonConfig;
+import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.PEQEntities;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import net.minecraftforge.common.MinecraftForge;

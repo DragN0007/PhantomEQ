@@ -1,4 +1,4 @@
-package com.phantomskeep.phantomeq.config;
+package com.phantomskeep.phantomeq.util.config;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.horse.Donkey;

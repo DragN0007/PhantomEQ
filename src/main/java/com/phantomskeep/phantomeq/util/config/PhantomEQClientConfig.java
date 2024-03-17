@@ -1,4 +1,4 @@
-package com.phantomskeep.phantomeq.config;
+package com.phantomskeep.phantomeq.util.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
