@@ -2,9 +2,9 @@ package com.phantomskeep.phantomeq;
 
 import com.mojang.logging.LogUtils;
 import com.phantomskeep.phantomeq.block.PEQBlocks;
-import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import com.phantomskeep.phantomeq.entity.PEQEntities;
 import com.phantomskeep.phantomeq.item.PEQItems;
+import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;

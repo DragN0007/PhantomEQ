@@ -2,9 +2,11 @@ package com.phantomskeep.phantomeq.item;
 
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.entity.PEQEntities;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -29,6 +31,9 @@ public class PEQItems {
     public static final RegistryObject<Item> MIXED_FEED = ITEM_DEFERRED.register("mixed_feed",
             () -> new Item(new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
 
+    //SPAWNEGGS
+    public static final RegistryObject<Item> MOUSE_SPAWN_EGG = ITEM_DEFERRED.register("mouse_spawn_egg",
+            () -> new ForgeSpawnEggItem(PEQEntities.MOUSE, 0x85755e, 0x9a8484, new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
 
 
     //MODTAB ICONS

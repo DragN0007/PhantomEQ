@@ -2,6 +2,7 @@ package com.phantomskeep.phantomeq.entity;
 
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.entity.other.Mouse;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import com.phantomskeep.phantomeq.render.QuarterHorseRender;
 import com.phantomskeep.phantomeq.render.WarmBloodRender;
@@ -37,10 +38,16 @@ public class PEQEntities {
     public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD_HORSE
             = registerEntity("warmblood_horse", WarmbloodHorseEntity::new, 1.2F, 1.6F);
 
+    public static final RegistryObject<EntityType<Mouse>> MOUSE
+            = registerEntity("mouse", Mouse::new, 0.4f,0.4f);
+
     public static RegistryObject<Item> QUARTER_HORSE_SPAWN_EGG
             = registerSpawnEgg("quarter_horse_spawn_egg", QUARTER_HORSE, 0x8B6C4C, 0x8B6C4C);
     public static RegistryObject<Item> WARMBLOOD_SPAWN_EGG
             = registerSpawnEgg("warmblood_spawn_egg", WARMBLOOD_HORSE, 0xC3A67C, 0x8F7C60);
+
+
+
 
     private static <T extends Animal> RegistryObject<EntityType<T>> registerEntity(
             String name, EntityType.EntityFactory<T> factory, float width, float height) {
