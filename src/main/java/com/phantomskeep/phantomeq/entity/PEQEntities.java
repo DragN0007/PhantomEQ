@@ -3,6 +3,8 @@ package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.entity.other.Mouse;
+import com.phantomskeep.phantomeq.entity.other.vehicle.TruckRenderer;
+import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import com.phantomskeep.phantomeq.render.QuarterHorseRender;
 import com.phantomskeep.phantomeq.render.WarmBloodRender;
@@ -38,8 +40,11 @@ public class PEQEntities {
     public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD_HORSE
             = registerEntity("warmblood_horse", WarmbloodHorseEntity::new, 1.2F, 1.6F);
 
+
     public static final RegistryObject<EntityType<Mouse>> MOUSE
             = registerEntity("mouse", Mouse::new, 0.4f,0.4f);
+
+
 
     public static RegistryObject<Item> QUARTER_HORSE_SPAWN_EGG
             = registerSpawnEgg("quarter_horse_spawn_egg", QUARTER_HORSE, 0x8B6C4C, 0x8B6C4C);
@@ -79,6 +84,7 @@ public class PEQEntities {
     {
         event.registerEntityRenderer(QUARTER_HORSE.get(), QuarterHorseRender::new);
         event.registerEntityRenderer(WARMBLOOD_HORSE.get(), WarmBloodRender::new);
+        event.registerEntityRenderer(EntityTypes.TRUCK.get(), TruckRenderer::new);
     }
 
     //to be used for coat textures in future??

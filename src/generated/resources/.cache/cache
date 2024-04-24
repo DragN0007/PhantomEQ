@@ -5,6 +5,7 @@ fef09bf625dcb626f014d673a14ebf179ff89345 assets/phantomeq/models/item/mixed_feed
 1d38a8e3256d062df2b6e36275ae79ed2a915244 assets/phantomeq/models/item/organic_feed.json
 1fc302d654ceb8c3d077fb78f3864aae532fd76a assets/phantomeq/models/item/regular_feed.json
 16de65243a6aa1783c6153e6d4604ab0d8c12605 assets/phantomeq/models/item/sport_feed.json
+1b1f17b76d2c3e6e21f628115aea000146257786 assets/phantomeq/models/item/truck_item.json
 fc5cae1d010b3e497f92c16e71470f4b215710e1 data/phantomeq/advancements/recipes/food/alfalfa_bale.json
 b89829ca56e29dec42cf66cce3f6518a4cd993bb data/phantomeq/loot_tables/blocks/alfalfa_bale.json
 e733eb344418de57f85e8e9f1f7ea012fa99c459 data/phantomeq/loot_tables/blocks/bucket.json

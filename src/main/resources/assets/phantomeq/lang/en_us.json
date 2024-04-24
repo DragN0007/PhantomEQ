@@ -14,6 +14,9 @@
   "item.phantomeq.mouse_spawn_egg": "Mouse Spawn Egg",
   "entity.phantomeq.mouse": "Mouse",
 
+  "item.phantomeq.truck_item": "Pickup Truck",
+  "entity.phantomeq.truck": "Pickup Truck",
+
   "item.phantomeq.peq_saddle": "PEQ Saddle",
 
   "item.phantomeq.organic_feed": "Organic Feed",
