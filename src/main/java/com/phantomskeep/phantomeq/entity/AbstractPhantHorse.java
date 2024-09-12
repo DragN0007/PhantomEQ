@@ -68,7 +68,7 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
     }
 
     private AbstractPhantHorse leader;
-    private int herdSize = 1;
+    protected int herdSize = 1;
 
     public boolean isFollower() {
         return this.leader != null && this.leader.isAlive();

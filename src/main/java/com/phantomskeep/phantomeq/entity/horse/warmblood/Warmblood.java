@@ -50,6 +50,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -84,6 +85,17 @@ public class Warmblood extends AbstractPhantHorse implements IAnimatable {
             idleAnimCooldown = Math.max(idleAnimCooldown - 1, 0);
         }
         super.tick();
+
+        if (this.isSaddled() && !this.isVehicle() || this.isLeashed()) {
+            this.getNavigation().stop();
+        }
+
+        if (this.hasFollowers() && this.level.random.nextInt(200) == 1) {
+            List<? extends AbstractPhantHorse> list = this.level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D));
+            if (list.size() <= 1) {
+                this.herdSize = 1;
+            }
+        }
     }
 
     public static AttributeSupplier.Builder createBaseHorseAttributes() {
