@@ -1,9 +1,8 @@
-package com.phantomskeep.phantomeq.render;
+package com.phantomskeep.phantomeq.entity.horse.quarter;
 
 import com.google.common.collect.Maps;
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
-import com.phantomskeep.phantomeq.model.QuarterHorseModel;
+import com.phantomskeep.phantomeq.render.TextureLayer;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

@@ -1,7 +1,6 @@
-package com.phantomskeep.phantomeq.model;
+package com.phantomskeep.phantomeq.entity.horse.quarter;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.QuarterHorseEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

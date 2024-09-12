@@ -1,8 +1,7 @@
-package com.phantomskeep.phantomeq.model;
+package com.phantomskeep.phantomeq.entity.other;
 
 
 import com.phantomskeep.phantomeq.PhantomEQ;
-import com.phantomskeep.phantomeq.entity.other.Mouse;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

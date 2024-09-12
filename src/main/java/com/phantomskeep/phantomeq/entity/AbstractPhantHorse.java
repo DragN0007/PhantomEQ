@@ -1,6 +1,7 @@
 package com.phantomskeep.phantomeq.entity;
 
 import com.phantomskeep.phantomeq.entity.genetics.Species;
+import com.phantomskeep.phantomeq.entity.horse.quarter.QuarterHorseEntity;
 import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.stream.Stream;
 
 public abstract class AbstractPhantHorse extends AbstractHorse {
 
@@ -63,6 +65,63 @@ public abstract class AbstractPhantHorse extends AbstractHorse {
         this.entityData.define(AGE, 0);
         this.entityData.define(GENDER, false);
         this.entityData.define(FERTILE, true);
+    }
+
+    private AbstractPhantHorse leader;
+    private int herdSize = 1;
+
+    public boolean isFollower() {
+        return this.leader != null && this.leader.isAlive();
+    }
+
+    public AbstractPhantHorse startFollowing(AbstractPhantHorse horse) {
+        this.leader = horse;
+        horse.addFollower();
+        return horse;
+    }
+
+    public void stopFollowing() {
+        this.leader.removeFollower();
+        this.leader = null;
+    }
+
+    private void addFollower() {
+        ++this.herdSize;
+    }
+
+    private void removeFollower() {
+        --this.herdSize;
+    }
+
+    public boolean canBeFollowed() {
+        return this.hasFollowers() && this.herdSize < this.getMaxHerdSize();
+    }
+
+    public int getMaxHerdSize() {
+        return 3;
+    }
+
+    public boolean hasFollowers() {
+        return this.herdSize > 1;
+    }
+
+    public boolean inRangeOfLeader() {
+        return this.distanceToSqr(this.leader) <= 121.0D;
+    }
+
+    public void pathToLeader() {
+        if (this.isFollower()) {
+            this.getNavigation().moveTo(this.leader, 1.0D);
+        }
+
+    }
+
+    public void addFollowers(Stream<? extends AbstractPhantHorse> stream) {
+        stream.limit((long)(this.getMaxHerdSize() - this.herdSize)).filter((horse) -> {
+            return horse != this;
+        }).forEach((horse) -> {
+            horse.startFollowing(this);
+        });
     }
 
     public InteractionResult mobInteract(Player player, InteractionHand hand) {

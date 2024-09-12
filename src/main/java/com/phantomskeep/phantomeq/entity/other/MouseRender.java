@@ -1,7 +1,5 @@
-package com.phantomskeep.phantomeq.render;
+package com.phantomskeep.phantomeq.entity.other;
 
-import com.phantomskeep.phantomeq.entity.other.Mouse;
-import com.phantomskeep.phantomeq.model.MouseModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 

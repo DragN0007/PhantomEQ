@@ -2,7 +2,6 @@ package com.phantomskeep.phantomeq.entity.other;
 
 import com.google.common.collect.Sets;
 import com.phantomskeep.phantomeq.entity.PEQEntities;
-import com.phantomskeep.phantomeq.model.MouseModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

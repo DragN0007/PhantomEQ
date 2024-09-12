@@ -1,7 +1,7 @@
 package com.phantomskeep.phantomeq.item;
 
-import com.phantomskeep.phantomeq.entity.other.vehicle.Truck;
 import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
+import com.phantomskeep.phantomeq.entity.other.vehicle.Truck;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;

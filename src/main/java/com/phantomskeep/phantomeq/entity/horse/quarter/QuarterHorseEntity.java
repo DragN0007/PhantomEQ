@@ -1,6 +1,8 @@
-package com.phantomskeep.phantomeq.entity;
+package com.phantomskeep.phantomeq.entity.horse.quarter;
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.entity.AbstractPhantHorse;
+import com.phantomskeep.phantomeq.entity.PEQEntities;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;

@@ -4,7 +4,7 @@ loaderVersion="[40,)"
 license="All rights reserved"
 [[mods]]
 modId="phantomeq"
-version="${1.18.2-0.1-ALPHA}"
+version="${1.18.2-0.1-BETA}"
 displayName="PhantomEQ"
 logoFile="examplemod.png"
 credits=""

@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.18.2-0.1-ALPHA'
+version = '1.18.2-0.1-BETA'
 group = 'com.phantomkeeps.phantomeq'
 archivesBaseName = 'PhantomEQ'
 

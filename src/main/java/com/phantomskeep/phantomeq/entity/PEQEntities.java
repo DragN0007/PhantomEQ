@@ -2,12 +2,14 @@ package com.phantomskeep.phantomeq.entity;
 
 
 import com.phantomskeep.phantomeq.PhantomEQ;
+import com.phantomskeep.phantomeq.entity.horse.quarter.QuarterHorseEntity;
+import com.phantomskeep.phantomeq.entity.horse.quarter.QuarterHorseRender;
+import com.phantomskeep.phantomeq.entity.horse.warmblood.WarmBloodRender;
+import com.phantomskeep.phantomeq.entity.horse.warmblood.Warmblood;
 import com.phantomskeep.phantomeq.entity.other.Mouse;
-import com.phantomskeep.phantomeq.entity.other.vehicle.TruckRenderer;
 import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
+import com.phantomskeep.phantomeq.entity.other.vehicle.TruckRenderer;
 import com.phantomskeep.phantomeq.item.PEQItems;
-import com.phantomskeep.phantomeq.render.QuarterHorseRender;
-import com.phantomskeep.phantomeq.render.WarmBloodRender;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -37,8 +39,8 @@ public class PEQEntities {
 
     public static final RegistryObject<EntityType<QuarterHorseEntity>> QUARTER_HORSE
             = registerEntity("quarter_horse", QuarterHorseEntity::new, 1.2F, 1.6F);
-    public static final RegistryObject<EntityType<WarmbloodHorseEntity>> WARMBLOOD_HORSE
-            = registerEntity("warmblood_horse", WarmbloodHorseEntity::new, 1.2F, 1.6F);
+    public static final RegistryObject<EntityType<Warmblood>> WARMBLOOD_HORSE
+            = registerEntity("warmblood_horse", Warmblood::new, 1.2F, 1.6F);
 
 
     public static final RegistryObject<EntityType<Mouse>> MOUSE
