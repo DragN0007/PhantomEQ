@@ -13,22 +13,28 @@ as their respective credit(s).
 Producer: PhantomsKeep
 
 Head Developers: 
--Lechecat (Head Admin)
--Dande (Head Artist)
--K8sk8 (Head Game Design)
--RileyCasper
+-PhantomsKeep (Owner)
+-Ori (Head Modeler/ Texture Artist)
+-RileyCasper (Organization Management)
+-DragN0007 (Head Coder)
 
 Horse Model(s) Artists: 
 -Ori 
--Bagek
 
 Animators:
 -NoahHeart
 
-Decor Artists:
+Texture Artists:
 -Dickzo
 -Valentine
+-Foxx
+-Smooshie_j
+-DeanRat
 
 Coders: 
--DragN
 -Mothfet
+-EvangeliX
+-DragN0007
+
+Genetics Advisor(s):
+-KingNootNoot
