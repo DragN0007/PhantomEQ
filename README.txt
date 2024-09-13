@@ -11,10 +11,11 @@ as their respective credit(s).
 
 
 Producer: PhantomsKeep
+Producer: Ori
 
 Head Developers: 
 -PhantomsKeep (Owner)
--Ori (Head Modeler/ Texture Artist)
+-Ori (Owner/ Head Modeler/ Texture Artist)
 -RileyCasper (Organization Management)
 -DragN0007 (Head Coder)
 
