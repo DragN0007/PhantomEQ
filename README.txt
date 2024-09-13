@@ -28,7 +28,7 @@ Animators:
 Texture Artists:
 -Dickzo
 -Valentine
--Foxx
+-Foxxiebae
 -Smooshie_j
 -DeanRat
 
