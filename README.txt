@@ -14,8 +14,8 @@ Producer: PhantomsKeep
 Producer: Ori
 
 Head Developers: 
--PhantomsKeep (Owner)
--Ori (Owner/ Head Modeler/ Texture Artist)
+-PhantomsKeep (Manager)
+-Ori (Manager/ Head Modeler/ Texture Artist)
 -RileyCasper (Organization Management)
 -DragN0007 (Head Coder)
 
