@@ -8,7 +8,6 @@ import com.phantomskeep.phantomeq.entity.ai.HorseFollowHerdLeaderGoal;
 import com.phantomskeep.phantomeq.entity.genetics.Species;
 import com.phantomskeep.phantomeq.entity.horse.warmblood.layer.WarmbloodDetailLayer;
 import com.phantomskeep.phantomeq.entity.horse.warmblood.layer.WarmbloodPatternLayer;
-import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

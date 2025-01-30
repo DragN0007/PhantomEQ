@@ -3,7 +3,6 @@ package com.phantomskeep.phantomeq;
 import com.mojang.logging.LogUtils;
 import com.phantomskeep.phantomeq.block.PEQBlocks;
 import com.phantomskeep.phantomeq.entity.PEQEntities;
-import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
 import com.phantomskeep.phantomeq.item.PEQItems;
 import com.phantomskeep.phantomeq.util.config.PhantomEQCommonConfig;
 import net.minecraft.network.FriendlyByteBuf;
@@ -77,7 +76,6 @@ public class PhantomEQ {
         PEQItems.ITEM_DEFERRED.register(modBus);
         PEQBlocks.register(modBus);
         SERIALIZERS.register(modBus);
-        EntityTypes.ENTITY_TYPES.register(modBus);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

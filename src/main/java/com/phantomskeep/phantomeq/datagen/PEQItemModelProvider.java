@@ -20,7 +20,6 @@ public class PEQItemModelProvider extends ItemModelProvider {
         simpleItem(PEQItems.ORGANIC_FEED.get());
         simpleItem(PEQItems.SPORT_FEED.get());
         simpleItem(PEQItems.REGULAR_FEED.get());
-        simpleItem(PEQItems.TRUCK_ITEM.get());
     }
 
     private ItemModelBuilder simpleItem(Item item) {

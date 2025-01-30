@@ -4,9 +4,6 @@ import com.phantomskeep.phantomeq.PhantomEQ;
 import com.phantomskeep.phantomeq.entity.PEQEntities;
 import com.phantomskeep.phantomeq.entity.other.Mouse;
 import com.phantomskeep.phantomeq.entity.other.MouseRender;
-import com.phantomskeep.phantomeq.entity.other.vehicle.EntityTypes;
-import com.phantomskeep.phantomeq.entity.other.vehicle.TruckModel;
-import com.phantomskeep.phantomeq.entity.other.vehicle.TruckRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -41,12 +38,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
     @SubscribeEvent
     public static void registerLayerDefinitionEvent(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(TruckRenderer.LAYER_LOCATION, TruckModel::createBodyLayer);
     }
 
     @SubscribeEvent
     public static void registerRendererEvent(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(EntityTypes.TRUCK.get(), TruckRenderer::new);
     }
 }
 

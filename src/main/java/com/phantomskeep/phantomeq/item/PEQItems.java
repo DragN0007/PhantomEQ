@@ -35,7 +35,6 @@ public class PEQItems {
     public static final RegistryObject<Item> MOUSE_SPAWN_EGG = ITEM_DEFERRED.register("mouse_spawn_egg",
             () -> new ForgeSpawnEggItem(PEQEntities.MOUSE, 0x85755e, 0x9a8484, new Item.Properties().stacksTo(64).tab(PEQItems.PEQ)));
 
-    public static final RegistryObject<Item> TRUCK_ITEM = ITEM_DEFERRED.register("truck_item", TruckItem::new);
 
 
     //MODTAB ICONS

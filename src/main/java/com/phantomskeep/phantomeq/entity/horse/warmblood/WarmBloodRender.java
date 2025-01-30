@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.renderers.geo.ExtendedGeoEntityRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class WarmBloodRender extends ExtendedGeoEntityRenderer<Warmblood> {
     public WarmBloodRender(EntityRendererProvider.Context renderManager) {
