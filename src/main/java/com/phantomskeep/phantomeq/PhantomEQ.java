@@ -35,22 +35,6 @@ public class PhantomEQ {
     public static final String MODID = "phantomeq";
     public static PhantomEQ instance;
 
-    public static final DeferredRegister<DataSerializerEntry> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.DATA_SERIALIZERS, MODID);
-    public static final RegistryObject<DataSerializerEntry> RESOURCE_SERIALIZER = SERIALIZERS.register("resource_serializer", () -> new DataSerializerEntry(new EntityDataSerializer<ResourceLocation>() {
-        @Override
-        public void write(FriendlyByteBuf buf, ResourceLocation resourceLocation) {
-            buf.writeResourceLocation(resourceLocation);
-        }
-        @Override
-        public ResourceLocation read(FriendlyByteBuf buf) {
-            return buf.readResourceLocation();
-        }
-        @Override
-        public ResourceLocation copy(ResourceLocation resourceLocation) {
-            return resourceLocation;
-        }
-    }));
-
     public PhantomEQ() {
         instance = this;
 
@@ -75,7 +59,6 @@ public class PhantomEQ {
         PEQEntities.ENTITY_DEFERRED.register(modBus);
         PEQItems.ITEM_DEFERRED.register(modBus);
         PEQBlocks.register(modBus);
-        SERIALIZERS.register(modBus);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
