@@ -42,8 +42,6 @@ public class PhantomEQ {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PhantomEQCommonConfig.spec);
-
         GeckoLib.initialize();
 
         MinecraftForge.EVENT_BUS.register(this);
